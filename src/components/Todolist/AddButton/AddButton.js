@@ -1,9 +1,9 @@
 import React from 'react';
 
-const addButton = (props) => {
+function AddButton (props) {
     return (
         <button onClick={props.addTodoHandler}>Add todo</button>
     );
 };
 
-export default addButton;
+export default AddButton;

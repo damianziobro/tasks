@@ -3,12 +3,13 @@ import './Todolist.css';
 
 import TodoElement from './TodoElement/TodoElement';
 
-const todolist = (props) => {
+function Todolist (props) {
+    //index as a key is only temoprary solution, change this to using unique key from backend
     return (
         <ul className="Todolist">
-        {props.todos.map( todo => <TodoElement todo={todo.body} />)}
+            {props.todos.map( (todo, index) => <TodoElement todo={todo.body} key={index}/>)}
         </ul>
     );
 }
 
-export default todolist;
+export default Todolist;

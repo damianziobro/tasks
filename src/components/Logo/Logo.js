@@ -1,10 +1,10 @@
 import React from 'react';
 
-const logo = (props) => {
+function Logo (props) {
     return (
         // placeholder
         <h1>Todolist</h1>
     );
 };
 
-export default logo;
+export default Logo;

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const todoInput = (props) => {
+function TodoInput (props) {
     return (
-        <input type="text" value="props.value" placeholder="Wpisz todo..." />
+        <input type="text"  placeholder="Wpisz todo..." />
     );
 };
 
-export default todoInput;
+export default TodoInput;

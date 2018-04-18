@@ -1,10 +1,10 @@
 import React from 'react';
 
-const auth = (props) => {
+function Auth (props) {
     return (
         // placeholder
         <div>Zalogowany</div>
     );
 };
 
-export default auth;
+export default Auth;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const todoElement = (props) => {
+function TodoElement (props) {
     return (
         <li>
             {props.todo}
@@ -9,4 +9,4 @@ const todoElement = (props) => {
     );
 }
 
-export default todoElement;
+export default TodoElement;
