@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
-import TodoInput from '../../components/Todolist/TodoInput/TodoInput';
-import AddButton from '../../components/Todolist/AddButton/AddButton';
+import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
 
 class Todolist extends Component {
@@ -21,16 +20,32 @@ class Todolist extends Component {
                 "created_at": "2018-04-11",
                 "created_at_humans": "6 seconds ago"
             }
+        ],
+        todoInputValue: ''
+    }
 
-        ]
+    submitTodo = (event) => {
+        const { todoInputValue } = this.state;
+
+        event.preventDefault();
+        if (todoInputValue) {
+            //dispatch add todo
+            console.log(todoInputValue);
+            this.setState({todoInputValue: ''});
+        }
+    }
+
+    changeHandler = (event) => {
+        this.setState({todoInputValue: event.target.value});
     }
 
     render () {
+        const { todoInputValue, todos } = this.state;
+
         return (
             <div>
-                <TodoInput />
-                <AddButton />
-                <TodolistComponent todos={this.state.todos} />
+                <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodo}/>
+                <TodolistComponent todos={todos} />
             </div>
         );
     }
