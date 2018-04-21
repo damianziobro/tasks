@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { signIn } from '../../store/actions';
 
 class SignIn extends Component {
     state = {
@@ -16,7 +19,9 @@ class SignIn extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(this.state);
+
+        const { email, password } = this.state.inputs;
+        this.props.onSignIn(email, password);
         this.setState({
             inputs: {
                 email: '',
@@ -26,14 +31,26 @@ class SignIn extends Component {
     }
 
     render () {
+        const { email, password} = this.state.inputs;
         return (
             <form onSubmit={this.submitHandler}>
-                <input name="email" type="text" placeholder="E-mail" value={this.state.inputs.email} onChange={this.changeHandler} />
-                <input name="password" type="password" placeholder="Hasło" value={this.state.inputs.password} onChange={this.changeHandler} />
+                <input name="email" type="text" placeholder="E-mail" value={email} onChange={this.changeHandler} />
+                <input name="password" type="password" placeholder="Hasło" value={password} onChange={this.changeHandler} />
                 <input type="submit" value="Submit" />
             </form>
         );
     }
 }
 
-export default SignIn;
+const mapStateToProps = state => {
+    return {
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSignIn: ( email, password ) => dispatch( signIn( email, password ) )
+    };
+};
+
+export default connect( mapStateToProps, mapDispatchToProps )( SignIn );

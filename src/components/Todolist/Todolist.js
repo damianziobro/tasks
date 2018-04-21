@@ -7,7 +7,7 @@ function Todolist (props) {
     //index as a key is only temoprary solution, change this to using unique key from backend
     return (
         <ul className="Todolist">
-            {props.todos.map( (todo, index) => <TodoElement todo={todo.body} key={index}/>)}
+            {props.todos.map( (todo, index) => <TodoElement todo={todo.text} key={index}/>)}
         </ul>
     );
 }
