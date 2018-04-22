@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
+import { initTodos } from '../../store/actions';
 
 class Todolist extends Component {
     state = {
         todoInputValue: ''
+    }
+
+    componentDidMount() {
+        this.props.initTodos();
     }
 
     submitTodo = (event) => {
@@ -33,18 +38,17 @@ class Todolist extends Component {
     }
 }
 
-//   const mapStateToProps = state => {
-//     return {
-       
-//     };
-// };
+  const mapStateToProps = state => {
+    return {
+        error: state.todos.error,
+        todos: state.todos.todos
+    };
+};
 
-// const mapDispatchToProps = dispatch => {
-//     return {
-        
-//     };
-// };
+const mapDispatchToProps = dispatch => {
+    return {
+        initTodos: () => dispatch(initTodos())
+    };
+};
 
-
-// export default connect( mapStateToProps, mapDispatchToProps )( Todolist );
-export default Todolist;
+export default connect(mapStateToProps, mapDispatchToProps)(Todolist);

@@ -1,6 +1,13 @@
-// export {
-    
-// } from './todos';
+export {
+    initTodos,
+    addTodo,
+    updateTodo,
+    deleteTodo,
+    setTodos,
+    error,
+    fetchTodosStart
+} from './todos';
+
 export {
     authStart,
     authFail,
