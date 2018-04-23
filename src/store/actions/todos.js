@@ -7,12 +7,7 @@ export const ERROR = 'ERROR';
 export const SET_TODOS = 'SET_TODOS';
 export const INIT_TODOS = 'INIT_TODOS';
 export const FETCH_TODOS_START = 'FETCH_TODOS_START';
-
-export const addTodo = () => {
-    return {
-        type: ADD_TODO
-    }
-};
+export const SET_LIST_ID = 'SET_LIST_ID';
 
 export const updateTodo = () => {
     return {
@@ -45,6 +40,13 @@ export const fetchTodosStart = () => {
     }
 }
 
+export const setListId = (id) => {
+    return {
+        type: SET_LIST_ID,
+        id: id
+    }
+}
+
 export const initTodos = () => {
     return dispatch => {
         dispatch(fetchTodosStart());
@@ -57,6 +59,7 @@ export const initTodos = () => {
         axios.get(url, config)
         .then(response => {
             dispatch(setTodos(response.data.data[0].tasks.data));
+            dispatch(setListId(response.data.data[0].id));
         })
         .catch(err => {
             dispatch(error(err));
