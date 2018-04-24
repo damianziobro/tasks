@@ -22,6 +22,7 @@ class SignIn extends Component {
 
         const { email, password } = this.state.inputs;
         this.props.onSignIn(email, password);
+        this.props.history.push('/');
         this.setState({
             inputs: {
                 email: '',

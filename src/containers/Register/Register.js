@@ -23,6 +23,7 @@ class Register extends Component {
         
         const { username, email, password} = this.state.inputs;
         this.props.onRegister(username, email, password);
+        this.props.history.push('signin');
         this.setState({
             inputs: {
                 username: '',
