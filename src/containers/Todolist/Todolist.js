@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
-import { initTodos, addTodo } from '../../store/actions';
+import { initTodos, addTodo, deleteTodo } from '../../store/actions';
+import { INIT_TODOS } from '../../store/actions/todos';
 
 class Todolist extends Component {
     state = {
@@ -26,6 +27,10 @@ class Todolist extends Component {
         }
     }
 
+    deleteTodoHandler = (event) => {
+        this.props.deleteTodo(event.target.id, this.props.listId);
+    }
+
     changeHandler = (event) => {
         this.setState({todoInputValue: event.target.value});
     }
@@ -35,7 +40,7 @@ class Todolist extends Component {
         return (
             <div>
                 <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodoHandler}/>
-                <TodolistComponent todos={this.props.todos} />
+                <TodolistComponent todos={this.props.todos} deleteTodoHandler={this.deleteTodoHandler}/>
             </div>
         );
     }
@@ -52,7 +57,8 @@ class Todolist extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         initTodos: () => dispatch(initTodos()),
-        addTodo: (todoInputValue, listId) => dispatch(addTodo(todoInputValue, listId))
+        addTodo: (todoInputValue, listId) => dispatch(addTodo(todoInputValue, listId)),
+        deleteTodo: (todoId, listId) => dispatch(deleteTodo(todoId, listId))
     };
 };
 

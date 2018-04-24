@@ -4,7 +4,7 @@ function TodoElement (props) {
     return (
         <li>
             {props.todo}
-            <button onClick={props.deleteTodoHandler}>X</button>
+            <button id={props.id} onClick={props.deleteTodoHandler}>X</button>
         </li>
     );
 }
