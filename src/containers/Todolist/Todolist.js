@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
-import { initTodos } from '../../store/actions';
+import { initTodos, addTodo } from '../../store/actions';
 
 class Todolist extends Component {
     state = {
@@ -14,10 +14,13 @@ class Todolist extends Component {
         this.props.initTodos();
     }
 
-    submitTodo = (event) => {
+    submitTodoHandler = (event) => {
         event.preventDefault();
 
         const { todoInputValue } = this.state;
+
+        this.props.addTodo(this.state.todoInputValue, this.props.listId);
+        
         if (todoInputValue) {
             this.setState({todoInputValue: ''});
         }
@@ -31,7 +34,7 @@ class Todolist extends Component {
         const { todoInputValue } = this.state;
         return (
             <div>
-                <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodo}/>
+                <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodoHandler}/>
                 <TodolistComponent todos={this.props.todos} />
             </div>
         );
@@ -41,13 +44,15 @@ class Todolist extends Component {
   const mapStateToProps = state => {
     return {
         error: state.todos.error,
-        todos: state.todos.todos
+        todos: state.todos.todos,
+        listId: state.todos.listId
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        initTodos: () => dispatch(initTodos())
+        initTodos: () => dispatch(initTodos()),
+        addTodo: (todoInputValue, listId) => dispatch(addTodo(todoInputValue, listId))
     };
 };
 
