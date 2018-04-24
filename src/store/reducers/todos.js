@@ -4,7 +4,8 @@ import { ADD_TODO, UPDATE_TODO, DELETE_TODO, ERROR, SET_TODOS, FETCH_TODOS_START
 const initialState = {
     todos: [],
     error: null,
-    loading: false
+    loading: false,
+    listId: null
 };
 
 const fetchTodosStart = (state, action) => {
@@ -20,7 +21,7 @@ const error = (state, action) => {
 }
 
 const setListId = (state, action) => {
-    return updateObject(state, action.id);
+    return updateObject(state, {listId: action.id});
 }
 
 const reducer = (state = initialState, action) => {
