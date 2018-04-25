@@ -35,12 +35,16 @@ class Todolist extends Component {
         this.setState({todoInputValue: event.target.value});
     }
 
+    checkedTodoHandler = (event) => {
+        this.props.deleteTodo(event.target.id, this.props.listId);
+    }
+
     render () {
         const { todoInputValue } = this.state;
         return (
             <div>
                 <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodoHandler}/>
-                <TodolistComponent todos={this.props.todos} deleteTodoHandler={this.deleteTodoHandler}/>
+                <TodolistComponent todos={this.props.todos} deleteTodoHandler={this.deleteTodoHandler} checkedTodoHandler={this.checkedTodoHandler}/>
             </div>
         );
     }
