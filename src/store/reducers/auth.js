@@ -10,7 +10,10 @@ const initialState = {
 };
 
 const authStart = (state, action) => {
-    return updateObject(state, { error: null, loading: true });
+    return updateObject(state, {
+        error: null,
+        loading: true
+    });
 };
 
 const registerSuccess = (state, action) => {
@@ -40,7 +43,12 @@ const authFail = (state, action) => {
 };
 
 const logout = (state, action) => {
-    return updateObject(state, { token: null, username: null, isAuthenticated: false });
+    console.log(state);
+    return updateObject(state, {
+        token: null,
+        username: null,
+        email: null
+    });
 };
 
 const reducer = (state = initialState, action) => {

@@ -4,7 +4,7 @@ function IsLogIn(props) {
     return (
         <div>
             <span>{`Zalogowany jako: ${props.username}`}</span>
-            <button>Wyloguj</button>
+            <button onClick={props.logoutHandler}>Wyloguj</button>
         </div>
     );
 }
