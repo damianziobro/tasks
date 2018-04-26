@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
 import { initTodos, addTodo, deleteTodo } from '../../store/actions';
-import { INIT_TODOS } from '../../store/actions/todos';
 
 class Todolist extends Component {
     state = {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Logo from '../../components/Logo/Logo';
-import Auth from '../../components/Auth/Auth';
+import Auth from '../../containers/Auth/Auth';
 import NotFound from '../../components/UI/NotFound/NotFound';
 
 import Todolist from '../../containers/Todolist/Todolist';

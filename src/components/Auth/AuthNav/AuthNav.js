@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Auth (props) {
+function AuthNav(props) {
     return (
         <nav>
             <ul>
@@ -14,6 +14,6 @@ function Auth (props) {
             </ul>
         </nav>
     );
-};
+}
 
-export default Auth;
+export default AuthNav;
