@@ -11,7 +11,7 @@ class Todolist extends Component {
     }
 
     componentDidMount() {
-        this.props.initTodos();
+            this.props.initTodos();
     }
 
     submitTodoHandler = (event) => {
