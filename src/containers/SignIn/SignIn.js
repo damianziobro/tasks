@@ -19,10 +19,9 @@ class SignIn extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-
         const { email, password } = this.state.inputs;
+
         this.props.onSignIn(email, password);
-        this.props.history.push('/');
         this.setState({
             inputs: {
                 email: '',
@@ -31,8 +30,15 @@ class SignIn extends Component {
         });
     }
 
+    componentDidUpdate() {
+        const { isAuthenticated, history } = this.props;
+        if (isAuthenticated) {
+            history.push('/');
+        }
+    }
+
     render () {
-        const { email, password} = this.state.inputs;
+        const { email, password } = this.state.inputs;
         return (
             <form onSubmit={this.submitHandler}>
                 <input name="email" type="text" placeholder="E-mail" value={email} onChange={this.changeHandler} />
@@ -45,12 +51,13 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
     return {
+        isAuthenticated: state.auth.token !== null
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSignIn: ( email, password ) => dispatch( signIn( email, password ) )
+        onSignIn: (email, password) => dispatch(signIn(email, password))
     };
 };
 
