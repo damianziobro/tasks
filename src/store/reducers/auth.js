@@ -43,7 +43,6 @@ const authFail = (state, action) => {
 };
 
 const logout = (state, action) => {
-    console.log(state);
     return updateObject(state, {
         token: null,
         username: null,

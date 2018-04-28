@@ -37,12 +37,11 @@ export const registerSuccess = (username, email) => {
     };
 };
 
-export const signInSuccess = (username, email, token) => {
+export const signInSuccess = (username, email) => {
     return {
         type: SIGN_IN_SUCCESS,
         username: username,
-        email: email,
-        token: token
+        email: email
     };
 };
 
@@ -59,9 +58,7 @@ export const register = (username, email, password) => {
 
             axios.post(url, registerData)
             .then(response => {
-                localStorage.setItem('token', response.data.meta.token);
-                localStorage.setItem('username', response.data.data.username);
-                dispatch(registerSuccess(response.data.meta.token, response.data.data.username));
+                dispatch(registerSuccess(response.data.data.username, response.data.data.email));
             })
             .catch(err => {
                 dispatch(authFail(err));
