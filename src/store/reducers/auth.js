@@ -6,7 +6,8 @@ const initialState = {
     username: null,
     email: null,
     error: null,
-    loading: false
+    loading: false,
+    isRegister: false
 };
 
 const authStart = (state, action) => {
@@ -21,7 +22,8 @@ const registerSuccess = (state, action) => {
         username: action.username,
         email: action.email,
         error: null,
-        loading: false
+        loading: false,
+        isRegister: true
      });
 };
 

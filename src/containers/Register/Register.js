@@ -21,9 +21,8 @@ class Register extends Component {
     submitHandler = (event) => {
         event.preventDefault();
         
-        const { username, email, password} = this.state.inputs;
+        const { username, email, password } = this.state.inputs;
         this.props.onRegister(username, email, password);
-        this.props.history.push('signin');
         this.setState({
             inputs: {
                 username: '',
@@ -33,8 +32,15 @@ class Register extends Component {
         });
     }
 
+    componentDidUpdate() {
+        const { isRegister, history } = this.props;
+        if (isRegister) {
+            history.push('/signin');
+        }
+    }
+
     render () {
-        const { username, email, password} = this.state.inputs;
+        const { username, email, password } = this.state.inputs;
         return (
             <form onSubmit={this.submitHandler}>
                 <input name="username" type="text" placeholder="Nazwa uzytkownika" value={username} onChange={this.changeHandler}/>
@@ -48,6 +54,7 @@ class Register extends Component {
 
 const mapStateToProps = state => {
     return {
+        isRegister: state.auth.isRegister
     };
 };
 
