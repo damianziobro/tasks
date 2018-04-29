@@ -3,52 +3,79 @@ import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
+
 import { initTodos, addTodo, deleteTodo } from '../../store/actions';
+import { isValid } from '../../shared/utility';
 
 class Todolist extends Component {
     state = {
-        todoInputValue: ''
-    }
+        todo: {
+            value: '',
+            validation: {
+                required: true
+            },
+            valid: false
+        }
+    };
 
     componentDidMount() {
             this.props.initTodos();
-    }
+    };
 
     submitTodoHandler = (event) => {
         event.preventDefault();
 
-        const { todoInputValue } = this.state;
+        const { listId } = this.props;
+        const { value } = this.state.todo;
 
-        this.props.addTodo(this.state.todoInputValue, this.props.listId);
-        
-        if (todoInputValue) {
-            this.setState({todoInputValue: ''});
-        }
-    }
+        this.props.addTodo(value, listId);
+
+        this.setState({ 
+            todo: {
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false
+            },
+            valid: false
+        });
+    };
 
     deleteTodoHandler = (event) => {
         this.props.deleteTodo(event.target.id, this.props.listId);
-    }
+    };
 
     changeHandler = (event) => {
+        const todo = { ...this.state.todo };
+        
+        todo.value = event.target.value;
+        todo.valid = isValid(todo.value, todo.validation);
 
-        this.setState({todoInputValue: event.target.value});
-    }
+        let newValid = false;
+        if (todo.valid) {
+            newValid = true;
+        };
+
+        this.setState({ todo: todo, valid: newValid });
+    };
 
     checkedTodoHandler = (event) => {
         this.props.deleteTodo(event.target.id, this.props.listId);
-    }
+    };
 
     render () {
-        const { todoInputValue } = this.state;
+        const { value, valid } = this.state.todo;
+        const { todos } = this.props;
+
         return (
             <div>
-                <AddTodo value={todoInputValue} changeHandler={this.changeHandler} submitTodo={this.submitTodoHandler}/>
-                <TodolistComponent todos={this.props.todos} deleteTodoHandler={this.deleteTodoHandler} checkedTodoHandler={this.checkedTodoHandler}/>
+                <AddTodo value={value} changeHandler={this.changeHandler} submitTodo={this.submitTodoHandler} valid={valid} />
+                <TodolistComponent todos={todos} deleteTodoHandler={this.deleteTodoHandler} checkedTodoHandler={this.checkedTodoHandler} />
             </div>
         );
-    }
-}
+    };
+};
 
   const mapStateToProps = state => {
     return {
@@ -61,7 +88,7 @@ class Todolist extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         initTodos: () => dispatch(initTodos()),
-        addTodo: (todoInputValue, listId) => dispatch(addTodo(todoInputValue, listId)),
+        addTodo: (todo, listId) => dispatch(addTodo(todo, listId)),
         deleteTodo: (todoId, listId) => dispatch(deleteTodo(todoId, listId))
     };
 };
