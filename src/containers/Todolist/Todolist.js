@@ -31,6 +31,7 @@ class Todolist extends Component {
     }
 
     changeHandler = (event) => {
+
         this.setState({todoInputValue: event.target.value});
     }
 

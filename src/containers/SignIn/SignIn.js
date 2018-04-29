@@ -11,7 +11,8 @@ class SignIn extends Component {
                 email: {
                     value: '',
                     validation: {
-                        required: true
+                        required: true,
+                        isEmail: true
                     },
                     valid: false
                 },
@@ -62,7 +63,8 @@ class SignIn extends Component {
                      email: {
                          value: '',
                          validation: {
-                             required: true
+                             required: true,
+                             isEmail: true
                          },
                          valid: false
                      },
