@@ -2,35 +2,99 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { register } from '../../store/actions';
+import { isValid } from '../../shared/utility';
 
 class Register extends Component {
     state = {
-        inputs: {
-            username: '',
-            email: '',
-            password: ''
-            }
-    }
+        form: {
+            inputs: {
+                 username: {
+                     value: '',
+                     validation: {
+                         required: true
+                     },
+                     valid: false
+                 },
+                 email: {
+                    value: '',
+                    validation: {
+                        required: true,
+                        isEmail: true
+                    },
+                    valid: false
+                },
+                 password: {
+                     value: '',
+                     validation: {
+                         required: true,
+                         minLength: 8
+                     },
+                     valid: false
+                 }
+            },
+            valid: false
+         }
+        };
 
     changeHandler = (event) => {
-        const inputs = {...this.state.inputs};
-        inputs[event.target.name] = event.target.value;
-        this.setState({inputs});
+        const form = { ...this.state.form };
+        const inputs = { ...this.state.form.inputs };
+        const input = {
+            ...inputs[event.target.name]
+        };
+
+        input.value = event.target.value;
+        input.valid = isValid(input.value, input.validation);
+        inputs[event.target.name] = input;
+
+        let formIsValid = true;
+        for (let inputIdentifier in inputs) {
+            formIsValid = inputs[inputIdentifier].valid && formIsValid;
+        }
+
+        form.inputs = inputs;
+        form.valid = formIsValid;
+
+        this.setState({ form: form });
     }
 
     submitHandler = (event) => {
         event.preventDefault();
-        
-        const { username, email, password } = this.state.inputs;
-        this.props.onRegister(username, email, password);
+        const { username, email, password } = this.state.form.inputs;
+
+        this.props.onRegister(username.value, email.value, password.value);
+
         this.setState({
-            inputs: {
-                username: '',
-                email: '',
-                password: ''
-            }
+            form: {
+                inputs: {
+                     username: {
+                         value: '',
+                         validation: {
+                             required: true
+                         },
+                         valid: false
+                     },
+                     email: {
+                        value: '',
+                        validation: {
+                            required: true,
+                            isEmail: true
+                        },
+                        valid: false
+                    },
+                     password: {
+                         value: '',
+                         validation: {
+                             required: true,
+                             minLength: 8
+                         },
+                         valid: false
+                     }
+                },
+                valid: false
+             }
         });
-    }
+    };
 
     componentDidUpdate() {
         const { isRegister, history } = this.props;
@@ -40,13 +104,13 @@ class Register extends Component {
     }
 
     render () {
-        const { username, email, password } = this.state.inputs;
+        const { username, email, password } = this.state.form.inputs;
         return (
             <form onSubmit={this.submitHandler}>
-                <input name="username" type="text" placeholder="Nazwa uzytkownika" value={username} onChange={this.changeHandler}/>
-                <input name="email" type="email" placeholder="E-mail" value={email} onChange={this.changeHandler}/>
-                <input name="password" type="password" placeholder="Hasło" value={password} onChange={this.changeHandler}/>
-                <input type="submit" value="Submit"/>
+                <input name="username" type="text" placeholder="Nazwa uzytkownika" value={username.value} onChange={this.changeHandler}/>
+                <input name="email" type="email" placeholder="E-mail" value={email.value} onChange={this.changeHandler}/>
+                <input name="password" type="password" placeholder="Hasło" value={password.value} onChange={this.changeHandler}/>
+                <input type="submit" value="Zarejestruj się"/>
             </form>
         );
     }

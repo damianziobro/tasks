@@ -32,7 +32,6 @@ class SignIn extends Component {
     changeHandler = (event) => {
         const form = { ...this.state.form };
         const inputs = { ...this.state.form.inputs };
-        const { email, password } = { ...inputs };
         const input = {
             ...inputs[event.target.name]
         };
@@ -46,8 +45,8 @@ class SignIn extends Component {
             formIsValid = inputs[inputIdentifier].valid && formIsValid;
         }
 
-        form['inputs'] = inputs;
-        form['valid'] = formIsValid;
+        form.inputs = inputs;
+        form.valid = formIsValid;
 
         this.setState({ form: form });
     }
