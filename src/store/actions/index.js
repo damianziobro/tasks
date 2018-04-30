@@ -16,4 +16,5 @@ export {
     signInSuccess,
     register,
     signIn,
+    tryAutoSignIn
 } from './auth';

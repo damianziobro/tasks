@@ -22,8 +22,9 @@ export const authFail = (error) => {
 };
 
 export const logout = () => {
-    localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
 
     return {
@@ -39,25 +40,48 @@ export const registerSuccess = (username, email) => {
     };
 };
 
-export const signInSuccess = (username, email) => {
+export const signInSuccess = (username, email, token) => {
     return {
         type: SIGN_IN_SUCCESS,
         username: username,
-        email: email
+        email: email,
+        token: token
     };
 };
 
-
 export const setAutoLogOut = (expirationTime) => {
-    return dispatch => {
+    return (dispatch) => {
         setTimeout(() => {
             dispatch(logout());
         }, expirationTime);
     };
 };
 
+export const tryAutoSignIn = () => {
+    return (dispatch) => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            dispatch(logout());
+        } else {
+            const expirationDate = new Date(localStorage.getItem('expirationDate'));
+
+            if (expirationDate <= new Date()) {
+                dispatch(logout());
+            } else {
+                const username = localStorage.getItem('username');
+                const email = localStorage.getItem('email');
+                const expirationTime = localStorage.getItem('expirationDate') * 1000 - new Date().getTime();
+
+                dispatch(signInSuccess(username, email, token));
+                dispatch(setAutoLogOut(expirationTime));
+            };
+        };
+    };
+};
+
 export const register = (username, email, password) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(authStart());
 
         let url = 'http://138.68.84.92/api/register';
@@ -78,7 +102,7 @@ export const register = (username, email, password) => {
 };
 
 export const signIn = (email, password) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(authStart());
 
         let url = 'http://138.68.84.92/api/signin';
@@ -91,8 +115,9 @@ export const signIn = (email, password) => {
             .then(response => {
                 const expirationTime = response.data.meta.expiry_at * 1000 - new Date().getTime();
 
-                localStorage.setItem('token', response.data.meta.token);
                 localStorage.setItem('username', response.data.data.username);
+                localStorage.setItem('email', response.data.data.email);
+                localStorage.setItem('token', response.data.meta.token);
                 localStorage.setItem('expirationDate', response.data.meta.expiry_at);
 
                 dispatch(signInSuccess(response.data.data.username, response.data.data.email, response.data.meta.token));

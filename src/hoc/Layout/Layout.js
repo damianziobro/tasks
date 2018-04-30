@@ -11,7 +11,13 @@ import Todolist from '../../containers/Todolist/Todolist';
 import Register from '../../containers/Register/Register';
 import SignIn from '../../containers/SignIn/SignIn';
 
+import { tryAutoSignIn } from '../../store/actions';
+
 class Layout extends Component {
+    componentDidMount() {
+        this.props.tryAutoSignIn();
+    }
+
     render () {
         const { isAuthenticated } = this.props;
         return (
@@ -31,10 +37,16 @@ class Layout extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token !== null
     };
 };
 
-export default withRouter(connect(mapStateToProps)(Layout));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        tryAutoSignIn: () => dispatch(tryAutoSignIn())
+    };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout));
