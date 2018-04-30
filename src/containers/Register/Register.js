@@ -107,10 +107,20 @@ class Register extends Component {
         const { username, email, password } = this.state.form.inputs;
         return (
             <form onSubmit={this.submitHandler}>
-                <input name="username" type="text" placeholder="Username" value={username.value} onChange={this.changeHandler}/>
-                <input name="email" type="email" placeholder="Email" value={email.value} onChange={this.changeHandler}/>
-                <input name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler}/>
-                <input type="submit" value="Register"/>
+                <h2>Create an account</h2>
+                <label htmlFor="username">
+                    Username
+                    <input id="username" name="username" type="text" placeholder="Username" value={username.value} onChange={this.changeHandler} />
+                </label>
+                <label htmlFor="email">
+                    Email
+                    <input id="email" name="email" type="email" placeholder="Email" value={email.value} onChange={this.changeHandler} />
+                </label>
+                <label htmlFor="password">
+                    Password
+                    <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                </label>
+                <input type="submit" value="Register" />
             </form>
         );
     }

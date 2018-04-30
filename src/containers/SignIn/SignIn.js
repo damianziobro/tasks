@@ -83,6 +83,7 @@ class SignIn extends Component {
 
     componentDidUpdate() {
         const { isAuthenticated, history } = this.props;
+        
         if (isAuthenticated) {
             history.push('/');
         }
@@ -91,10 +92,18 @@ class SignIn extends Component {
     render () {
         const { valid } = this.state.form;
         const { email, password } = this.state.form.inputs;
+
         return (
             <form onSubmit={this.submitHandler}>
-                <input name="email" type="email" placeholder="E-mail" value={email.value} onChange={this.changeHandler} />
-                <input name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                <h2>Sign In</h2>
+                <label htmlFor="email">
+                    Email
+                    <input id="email" name="email" type="email" placeholder="E-mail" value={email.value} onChange={this.changeHandler} />
+                </label>
+                <label htmlFor="password">
+                    Password
+                    <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                </label>
                 <input type="submit" value="Sign In" disabled={!valid} />
             </form>
         );
