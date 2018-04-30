@@ -5,8 +5,8 @@ function AddTodo (props) {
 
     return (
         <form onSubmit={submitTodo}>
-            <input type="text"  value={value} onChange={changeHandler} placeholder="Wpisz todo..." />
-            <input type="submit" value="Dodaj todo" disabled={!valid} /> 
+            <input type="text"  value={value} onChange={changeHandler} placeholder="Add a to-do..." />
+            <input type="submit" value="Add" disabled={!valid} /> 
         </form>
     );
 };

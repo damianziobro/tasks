@@ -2,7 +2,7 @@ import React from 'react';
 
 function MustBeLogged(props) {
     return (
-        <div>Zaloguj się by zobaczyć listę todo</div>
+        <div>You must be logged in to see todolist</div>
     )
 }
 

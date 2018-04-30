@@ -94,8 +94,8 @@ class SignIn extends Component {
         return (
             <form onSubmit={this.submitHandler}>
                 <input name="email" type="email" placeholder="E-mail" value={email.value} onChange={this.changeHandler} />
-                <input name="password" type="password" placeholder="Hasło" value={password.value} onChange={this.changeHandler} />
-                <input type="submit" value="Submit" disabled={!valid} />
+                <input name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                <input type="submit" value="Sign In" disabled={!valid} />
             </form>
         );
     }

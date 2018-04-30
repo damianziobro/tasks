@@ -83,7 +83,7 @@ export const signIn = (email, password) => {
                 dispatch(signInSuccess(response.data.data.username, response.data.data.email, response.data.meta.token));
             })
             .catch(err => {
-                dispatch(authFail(err.response.data.error));
+                dispatch(authFail(err.response.data));
             });
     };
 };

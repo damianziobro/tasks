@@ -3,7 +3,7 @@ import React from 'react';
 function Logo (props) {
     return (
         // placeholder
-        <h1>Todolist</h1>
+        <h1>Todo List</h1>
     );
 };
 

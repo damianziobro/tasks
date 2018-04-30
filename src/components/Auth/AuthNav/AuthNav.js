@@ -6,10 +6,10 @@ function AuthNav(props) {
         <nav>
             <ul>
                 <li>
-                    <Link to="/signin">Zaloguj się</Link>
+                    <Link to="/signin">Sign In</Link>
                 </li>
                 <li>
-                    <Link to="/register">Zarejestruj się</Link>
+                    <Link to="/register">Create an account</Link>
                 </li>
             </ul>
         </nav>
