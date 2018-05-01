@@ -14,6 +14,7 @@ export {
     logout,
     registerSuccess,
     signInSuccess,
+    signInFail,
     register,
     signIn,
     tryAutoSignIn

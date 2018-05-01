@@ -56,6 +56,7 @@ class SignIn extends Component {
         const { email, password } = this.state.form.inputs;
 
         this.props.onSignIn(email.value, password.value);
+
         this.setState({
             form: {
                 inputs: {
@@ -92,7 +93,8 @@ class SignIn extends Component {
     render () {
         const { valid } = this.state.form;
         const { email, password } = this.state.form.inputs;
-
+        const error = this.props.error ? <span>Try again</span> : null;
+        
         return (
             <form onSubmit={this.submitHandler}>
                 <h2>Sign In</h2>
@@ -104,6 +106,7 @@ class SignIn extends Component {
                     Password
                     <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
                 </label>
+                {error}
                 <input type="submit" value="Sign In" disabled={!valid} />
             </form>
         );
@@ -112,7 +115,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
     return {
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        error: state.auth.signInError
     };
 };
 

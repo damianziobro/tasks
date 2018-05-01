@@ -5,6 +5,7 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
+export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 export const REGISTER = 'REGISTER';
 export const SIGN_IN = 'SIGN_IN';
 
@@ -46,6 +47,12 @@ export const signInSuccess = (username, email, token) => {
         username: username,
         email: email,
         token: token
+    };
+};
+
+export const signInFail = () => {
+    return {
+        type: SIGN_IN_FAIL
     };
 };
 
@@ -124,7 +131,7 @@ export const signIn = (email, password) => {
                 dispatch(setAutoLogOut(expirationTime));
             })
             .catch(err => {
-                dispatch(authFail(err.response.data));
+                dispatch(signInFail());
             });
     };
 };
