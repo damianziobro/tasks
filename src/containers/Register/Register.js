@@ -105,6 +105,8 @@ class Register extends Component {
 
     render () {
         const { username, email, password } = this.state.form.inputs;
+        const { valid } = this.state.form;
+        
         return (
             <form onSubmit={this.submitHandler}>
                 <h2>Create an account</h2>
@@ -120,7 +122,7 @@ class Register extends Component {
                     Password
                     <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
                 </label>
-                <input type="submit" value="Register" />
+                <input type="submit" value="Register" disabled={!valid} />
             </form>
         );
     }
