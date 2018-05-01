@@ -15,10 +15,9 @@ export const authStart = () => {
     };
 };
 
-export const authFail = (error) => {
+export const authFail = () => {
     return {
-        type: AUTH_FAIL,
-        error: error
+        type: AUTH_FAIL
     };
 };
 
@@ -103,7 +102,7 @@ export const register = (username, email, password) => {
                 dispatch(registerSuccess(response.data.data.username, response.data.data.email));
             })
             .catch(err => {
-                dispatch(authFail(err));
+                dispatch(authFail());
             });
     };
 };
