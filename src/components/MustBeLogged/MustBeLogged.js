@@ -1,9 +1,7 @@
 import React from 'react';
 
-function MustBeLogged(props) {
-    return (
-        <div>You must be logged in to see todolist</div>
-    )
-}
+function MustBeLogged() {
+    return <div>You must be logged in to see your list of todos</div>;
+};
 
 export default MustBeLogged;

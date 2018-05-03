@@ -1,5 +1,17 @@
-import { updateObject } from '../../shared/utility';
-import { UPDATE_TODO, ERROR, SET_TODOS, FETCH_TODOS_START, SET_LIST_ID, ADD_TODO_START, SET_TODO, ADD_TODO_SUCCESS, DELETE_TODO_FROM_STATE } from '../actions/todos';
+import {
+    updateObject
+} from '../../shared/utility';
+
+import {
+    ERROR,
+    SET_TODOS,
+    FETCH_TODOS_START,
+    SET_LIST_ID,
+    ADD_TODO_START,
+    SET_TODO,
+    ADD_TODO_SUCCESS,
+    DELETE_TODO_FROM_STATE
+} from '../actions/todos';
 
 const initialState = {
     todos: [],
@@ -41,7 +53,7 @@ const addTodoSuccess = (state, action) => {
 
 const deleteTodoFromState = (state, action) => {
     const oldTodos = [...state.todos];
-    const newTodos = oldTodos.filter(todo => todo.id != parseInt(action.todoId));
+    const newTodos = oldTodos.filter(todo => todo.id !== Number(action.todoId));
     return updateObject(state, {todos: newTodos});
 }
 

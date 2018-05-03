@@ -1,14 +1,22 @@
 import React from 'react';
+
 import './Todolist.css';
 
 import TodoElement from './TodoElement/TodoElement';
 
-function Todolist (props) {
+function Todolist({ todos, onDeleteTodo, onCompleteTodo }) {
     return (
         <ul className="Todolist">
-            {props.todos.map((todo) => <TodoElement todo={todo.body} key={todo.id} deleteTodoHandler={props.deleteTodoHandler} id={todo.id} checkedTodoHandler={props.checkedTodoHandler}/>)}
+            {todos.map(({ body, id }) => <TodoElement
+                todo={body}
+                key={id}
+                onDeleteTodo={onDeleteTodo}
+                id={id}
+                onCompleteTodo={onCompleteTodo}
+                />
+            )}
         </ul>
     );
-}
+};
 
 export default Todolist;

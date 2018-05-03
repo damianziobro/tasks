@@ -1,9 +1,8 @@
 import React from 'react';
 
-function Logo (props) {
+function Logo() {
     return (
-        // placeholder
-        <h1>Todo List</h1>
+        <h1>To Do List</h1>
     );
 };
 

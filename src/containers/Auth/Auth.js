@@ -7,29 +7,29 @@ import IsLogIn from '../../components/Auth/IsLogIn/IsLogIn';
 import { logout } from '../../store/actions';
 
 class Auth extends Component {
-    logoutHandler = (event) => {
+
+    handleLogoutBtnClick = () => {
         this.props.logout();
-    }
+    };
 
     render() {
-        let componentToRender = null;
-        if (this.props.isAuthenticated) {
-            componentToRender = <IsLogIn username={this.props.username} logoutHandler={this.logoutHandler}/>
-        } else {
-            componentToRender = <AuthNav />
-        }
-        return componentToRender;
-    }
-}
+        const { isAuthenticated, username } = this.props;
 
-const mapStateToProps = state => {
+        if (isAuthenticated) {
+            return <IsLogIn username={username} onLogoutBtnClick={this.handleLogoutBtnClick} />;
+        }
+        return <AuthNav />;
+    };
+};
+
+const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token !== null,
         username: state.auth.username
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         logout: () => dispatch(logout())
     };

@@ -5,6 +5,7 @@ import { register } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
 class Register extends Component {
+
     state = {
         form: {
             inputs: {
@@ -34,9 +35,17 @@ class Register extends Component {
             },
             valid: false
          }
-        };
+    };
 
-    changeHandler = (event) => {
+    componentDidUpdate() {
+        const { isRegistered, history } = this.props;
+
+        if (isRegistered) {
+            history.push('/signin');
+        };
+    };
+
+    handleInputChange = (event) => {
         const form = { ...this.state.form };
         const inputs = { ...this.state.form.inputs };
         const input = {
@@ -56,9 +65,9 @@ class Register extends Component {
         form.valid = formIsValid;
 
         this.setState({ form: form });
-    }
+    };
 
-    submitHandler = (event) => {
+    handleFormSubmit = (event) => {
         event.preventDefault();
         const { username, email, password } = this.state.form.inputs;
 
@@ -96,48 +105,66 @@ class Register extends Component {
         });
     };
 
-    componentDidUpdate() {
-        const { isRegister, history } = this.props;
-        if (isRegister) {
-            history.push('/signin');
-        }
-    }
-
-    render () {
+    render() {
         const { username, email, password } = this.state.form.inputs;
         const { valid } = this.state.form;
         
         return (
-            <form onSubmit={this.submitHandler}>
+            <form onSubmit={this.handleFormSubmit}>
                 <h2>Create an account</h2>
                 <label htmlFor="username">
                     Username
-                    <input id="username" name="username" type="text" placeholder="Username" value={username.value} onChange={this.changeHandler} />
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        value={username.value}
+                        onChange={this.handleInputChange}
+                    />
                 </label>
                 <label htmlFor="email">
                     Email
-                    <input id="email" name="email" type="email" placeholder="Email" value={email.value} onChange={this.changeHandler} />
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        value={email.value}
+                        onChange={this.handleInputChange}
+                    />
                 </label>
                 <label htmlFor="password">
                     Password
-                    <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value={password.value}
+                        onChange={this.handleInputChange}
+                    />
                 </label>
-                <input type="submit" value="Register" disabled={!valid} />
+                <input
+                    type="submit"
+                    value="Register"
+                    disabled={!valid}
+                />
             </form>
         );
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        isRegister: state.auth.isRegister
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state) => {
     return {
-        onRegister: ( username, email, password ) => dispatch( register( username, email, password ) )
+        isRegistered: state.auth.isRegistered
     };
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( Register );
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRegister: (username, email, password) => dispatch(register(username, email, password))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

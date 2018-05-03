@@ -35,17 +35,17 @@ export const logout = () => {
 export const registerSuccess = (username, email) => {
     return {
         type: REGISTER_SUCCESS,
-        username: username,
-        email: email
+        username,
+        email
     };
 };
 
 export const signInSuccess = (username, email, token) => {
     return {
         type: SIGN_IN_SUCCESS,
-        username: username,
-        email: email,
-        token: token
+        username,
+        email,
+        token
     };
 };
 
@@ -92,9 +92,9 @@ export const register = (username, email, password) => {
 
         let url = 'register';
         const registerData = {
-            username: username,
-            email: email,
-            password: password
+            username,
+            email,
+            password
         };
 
             axios.post(url, registerData)
@@ -113,8 +113,8 @@ export const signIn = (email, password) => {
 
         let url = 'signin';
         const signInData = {
-            email: email,
-            password: password
+            email,
+            password
         };
 
         axios.post(url, signInData)

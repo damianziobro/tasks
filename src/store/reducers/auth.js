@@ -1,5 +1,15 @@
-import { updateObject } from '../../shared/utility';
-import { AUTH_START, REGISTER_SUCCESS, AUTH_FAIL, LOGOUT, SIGN_IN_SUCCESS, SIGN_IN_FAIL } from '../actions/auth';
+import {
+    updateObject
+} from '../../shared/utility';
+
+import {
+    AUTH_START,
+    REGISTER_SUCCESS,
+    AUTH_FAIL,
+    LOGOUT,
+    SIGN_IN_SUCCESS,
+    SIGN_IN_FAIL
+} from '../actions/auth';
 
 const initialState = {
     token: null,
@@ -7,7 +17,7 @@ const initialState = {
     email: null,
     error: false,
     loading: false,
-    isRegister: false,
+    isRegistered: false,
     signInError: false
 };
 
@@ -24,7 +34,7 @@ const registerSuccess = (state, action) => {
         email: action.email,
         error: false,
         loading: false,
-        isRegister: true
+        isRegistered: true
      });
 };
 

@@ -5,6 +5,7 @@ import { signIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
 class SignIn extends Component {
+
     state = {
        form: {
            inputs: {
@@ -27,9 +28,17 @@ class SignIn extends Component {
            },
            valid: false
         }
-       };
+    };
 
-    changeHandler = (event) => {
+    componentDidUpdate() {
+        const { isAuthenticated, history } = this.props;
+        
+        if (isAuthenticated) {
+            history.push('/');
+        };
+    };
+
+    handleInputChange = (event) => {
         const form = { ...this.state.form };
         const inputs = { ...this.state.form.inputs };
         const input = {
@@ -48,10 +57,10 @@ class SignIn extends Component {
         form.inputs = inputs;
         form.valid = formIsValid;
 
-        this.setState({ form: form });
+        this.setState({ form });
     }
 
-    submitHandler = (event) => {
+    handleFormSubmit = (event) => {
         event.preventDefault();
         const { email, password } = this.state.form.inputs;
 
@@ -82,45 +91,55 @@ class SignIn extends Component {
         });
     };
 
-    componentDidUpdate() {
-        const { isAuthenticated, history } = this.props;
-        
-        if (isAuthenticated) {
-            history.push('/');
-        }
-    }
-
-    render () {
+    render() {
         const { valid } = this.state.form;
         const { email, password } = this.state.form.inputs;
         const error = this.props.error ? <span>Try again</span> : null;
         
         return (
-            <form onSubmit={this.submitHandler}>
+            <form onSubmit={this.handleFormSubmit}>
                 <h2>Sign In</h2>
                 <label htmlFor="email">
                     Email
-                    <input id="email" name="email" type="email" placeholder="E-mail" value={email.value} onChange={this.changeHandler} />
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="E-mail"
+                        value={email.value}
+                        onChange={this.handleInputChange}
+                    />
                 </label>
                 <label htmlFor="password">
                     Password
-                    <input id="password" name="password" type="password" placeholder="Password" value={password.value} onChange={this.changeHandler} />
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        placeholder="Password"
+                        value={password.value}
+                        onChange={this.handleInputChange}
+                    />
                 </label>
                 {error}
-                <input type="submit" value="Sign In" disabled={!valid} />
+                <input
+                    type="submit"
+                    value="Sign In"
+                    disabled={!valid}
+                />
             </form>
         );
-    }
-}
+    };
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token !== null,
         error: state.auth.signInError
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         onSignIn: (email, password) => dispatch(signIn(email, password))
     };

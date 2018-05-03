@@ -1,13 +1,13 @@
 import React from 'react';
 
-function TodoElement (props) {
+function TodoElement({ id, onCompleteTodo, todo, onDeleteTodo }) {
     return (
         <li>
-            <input id={props.id} type="checkbox" value="checked" onClick={props.checkedTodoHandler}/>
-            {props.todo}
-            <button id={props.id} onClick={props.deleteTodoHandler}>X</button>
+            <input id={id} type="checkbox" value="checked" onClick={onCompleteTodo}/>
+            <span>{todo}</span>
+            <button id={id} onClick={onDeleteTodo}>X</button>
         </li>
     );
-}
+};
 
 export default TodoElement;

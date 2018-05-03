@@ -1,10 +1,10 @@
 import React from 'react';
 
-function IsLogIn(props) {
+function IsLogIn({ username, onLogoutBtnClick }) {
     return (
         <div>
-            <span>{`Logged in as: ${props.username}`}</span>
-            <button onClick={props.logoutHandler}>Sign out</button>
+            <span>{`Logged in as: ${username}`}</span>
+            <button onClick={onLogoutBtnClick}>Sign out</button>
         </div>
     );
 };

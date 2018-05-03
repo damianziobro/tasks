@@ -1,6 +1,5 @@
 import axios from '../../axiosBaseInstance';
 
-export const UPDATE_TODO = 'UPDATE_TODO';
 export const ERROR = 'ERROR';
 export const SET_TODOS = 'SET_TODOS';
 export const INIT_TODOS = 'INIT_TODOS';
@@ -13,12 +12,6 @@ export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_TODO_FROM_STATE = 'DELETE_TODO_FROM_STATE';
 
-export const updateTodo = () => {
-    return {
-        type: UPDATE_TODO
-    }
-};
-
 export const error = (error) => {
     return {
         type: ERROR
@@ -28,7 +21,7 @@ export const error = (error) => {
 export const setTodos = (todos) => {
     return {
         type: SET_TODOS,
-        todos: todos
+        todos
     }
 };
 
@@ -36,14 +29,14 @@ export const fetchTodosStart = () => {
     return {
         type: FETCH_TODOS_START
     }
-}
+};
 
 export const setListId = (id) => {
     return {
         type: SET_LIST_ID,
-        id: id
+        id
     }
-}
+};
 
 export const initTodos = () => {
     return dispatch => {
@@ -69,20 +62,20 @@ export const addTodoStart = () => {
     return {
         type: ADD_TODO_START
     }
-}
+};
 
 export const setTodo = (todo) => {
     return {
         type: SET_TODO,
-        todo: todo
+        todo
     }
-}
+};
 
 export const addTodoSuccess = () => {
     return {
         type: ADD_TODO_SUCCESS
     }
-}
+};
 
 export const addTodo = (todo, listId) => {
     return dispatch => {
@@ -111,7 +104,7 @@ export const addTodo = (todo, listId) => {
 const deleteTodoFromState = (todoId) => {
     return {
         type: DELETE_TODO_FROM_STATE,
-        todoId: todoId
+        todoId
     };
 };
 
