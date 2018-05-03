@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axiosBaseInstance';
 
 export const UPDATE_TODO = 'UPDATE_TODO';
 export const ERROR = 'ERROR';
@@ -48,7 +48,7 @@ export const setListId = (id) => {
 export const initTodos = () => {
     return dispatch => {
         dispatch(fetchTodosStart());
-        let url = 'http://138.68.84.92/api/list';
+        let url = 'list';
         let config = {
             headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
@@ -87,7 +87,7 @@ export const addTodoSuccess = () => {
 export const addTodo = (todo, listId) => {
     return dispatch => {
         dispatch(addTodoStart());
-        let url = `http://138.68.84.92/api/list/${listId}/task`;
+        let url = `list/${listId}/task`;
         let data = {
             body: todo
         };
@@ -117,7 +117,7 @@ const deleteTodoFromState = (todoId) => {
 
 export const deleteTodo = (todoId, listId) => {
     return dispatch => {
-        let url = `http://138.68.84.92/api/list/${listId}/task/${todoId}`;
+        let url = `list/${listId}/task/${todoId}`;
         let config = {
             headers: {
             'Authorization': 'Bearer ' + localStorage.getItem('token')

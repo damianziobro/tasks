@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axiosBaseInstance';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_FAIL = 'AUTH_FAIL';
@@ -90,7 +90,7 @@ export const register = (username, email, password) => {
     return (dispatch) => {
         dispatch(authStart());
 
-        let url = 'http://138.68.84.92/api/register';
+        let url = 'register';
         const registerData = {
             username: username,
             email: email,
@@ -111,7 +111,7 @@ export const signIn = (email, password) => {
     return (dispatch) => {
         dispatch(authStart());
 
-        let url = 'http://138.68.84.92/api/signin';
+        let url = 'signin';
         const signInData = {
             email: email,
             password: password
