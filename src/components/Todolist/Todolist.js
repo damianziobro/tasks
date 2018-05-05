@@ -1,12 +1,12 @@
 import React from 'react';
 
-import './Todolist.css';
+import styles from './Todolist.css';
 
 import TodoElement from './TodoElement/TodoElement';
 
 function Todolist({ todos, onDeleteTodo, onCompleteTodo }) {
     return (
-        <ul className="Todolist">
+        <ul className={styles.Todolist}>
             {todos.map(({ body, id }) => <TodoElement
                 todo={body}
                 key={id}
