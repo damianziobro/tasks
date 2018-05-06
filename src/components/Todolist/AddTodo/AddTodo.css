@@ -1,0 +1,33 @@
+.form {
+    border: none;
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    padding: .7em 0;
+    margin: .7em 0;
+    width: 400px;
+    background-color: #ffffff;
+    font-size: 1em;
+    border: none;
+}
+
+.submitBtn {
+    cursor: pointer;
+    height: 2em;
+    padding: 0 1em;
+    transform: translateX(-.5em);
+    transition: .5s;
+}
+
+.submitBtn:hover {
+    transform: translateX(.5em);
+}
+
+.submitBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: translateX(-.5em);
+}

@@ -6,7 +6,7 @@ import TodoElement from './TodoElement/TodoElement';
 
 function Todolist({ todos, onDeleteTodo, onCompleteTodo }) {
     return (
-        <ul className={styles.Todolist}>
+        <ul className={styles.todolist}>
             {todos.map(({ body, id }) => <TodoElement
                 todo={body}
                 key={id}

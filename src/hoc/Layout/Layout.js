@@ -13,6 +13,8 @@ import SignIn from '../../containers/SignIn/SignIn';
 
 import { tryAutoSignIn } from '../../store/actions';
 
+import styles from './Layout.css';
+
 class Layout extends Component {
 
     componentDidMount() {
@@ -23,17 +25,19 @@ class Layout extends Component {
         const { isAuthenticated } = this.props;
 
         return (
-            <div>
-                <header>
+            <div className={styles.app}>
+                <header className={styles.header}>
                     <Logo />
                     <Auth />
                 </header>
-                <Switch>
-                    <Route path="/" exact render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/signin" component={SignIn} />
-                    <Route component={NotFound} />
-                </Switch>
+                <main className={styles.main}>
+                    <Switch>
+                        <Route path="/" exact render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)} />
+                        <Route path="/register" component={Register} />
+                        <Route path="/signin" component={SignIn} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </main>
             </div>
         );
     };

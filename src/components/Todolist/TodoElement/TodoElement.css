@@ -1,0 +1,19 @@
+.todoElement {
+    padding: .5em 0;
+    margin: .5em 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox {
+    cursor: pointer;
+}
+
+.deleteTodoBtn {
+    background: url('../../../assets/img/trash-can.png') no-repeat;
+    background-size: 100%;
+    border: none;
+    cursor: pointer;
+
+}

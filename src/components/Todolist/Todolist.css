@@ -1,3 +1,4 @@
-.Todolist {
-    background-color: red; 
+.todolist {
+    list-style-type: none;
+    padding: 0;
 }

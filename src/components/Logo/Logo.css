@@ -1,0 +1,13 @@
+.logo {
+    width: 50px;
+    padding: .7em;
+    margin: .7em;
+}
+
+.logoImg {
+    width: 100%;
+}
+
+.heading {
+    display: none;
+}

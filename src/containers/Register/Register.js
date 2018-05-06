@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { register } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
+import styles from './Register.css';
+
 class Register extends Component {
 
     state = {
@@ -110,45 +112,49 @@ class Register extends Component {
         const { valid } = this.state.form;
         
         return (
-            <form onSubmit={this.handleFormSubmit}>
-                <h2>Create an account</h2>
-                <label htmlFor="username">
+            <form onSubmit={this.handleFormSubmit} className={styles.form}>
+                <h2 className={styles.heading}>Create an account</h2>
+                <label htmlFor="username" className={styles.label}>
                     Username
                     <input
                         id="username"
                         name="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="Your username goes here"
                         value={username.value}
                         onChange={this.handleInputChange}
+                        className={styles.input}
                     />
                 </label>
-                <label htmlFor="email">
+                <label htmlFor="email" className={styles.label}>
                     Email
                     <input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="Email"
+                        placeholder="Your e-mail goes here"
                         value={email.value}
                         onChange={this.handleInputChange}
+                        className={styles.input}
                     />
                 </label>
-                <label htmlFor="password">
+                <label htmlFor="password" className={styles.label}>
                     Password
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Your password goes here"
                         value={password.value}
                         onChange={this.handleInputChange}
+                        className={styles.input}
                     />
                 </label>
                 <input
                     type="submit"
                     value="Register"
                     disabled={!valid}
+                    className={styles.submitBtn}
                 />
             </form>
         );

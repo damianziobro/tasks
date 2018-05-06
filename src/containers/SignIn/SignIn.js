@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { signIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
+import styles from './SignIn.css';
+
 class SignIn extends Component {
 
     state = {
@@ -97,28 +99,30 @@ class SignIn extends Component {
         const error = this.props.error ? <span>Try again</span> : null;
         
         return (
-            <form onSubmit={this.handleFormSubmit}>
-                <h2>Sign In</h2>
-                <label htmlFor="email">
+            <form onSubmit={this.handleFormSubmit} className={styles.form}>
+                <h2 className={styles.heading}>Sign In</h2>
+                <label htmlFor="email" className={styles.label}>
                     Email
                     <input
                         id="email"
                         name="email"
                         type="email"
-                        placeholder="E-mail"
+                        placeholder="Your e-mail goes here"
                         value={email.value}
                         onChange={this.handleInputChange}
+                        className={styles.input}
                     />
                 </label>
-                <label htmlFor="password">
+                <label htmlFor="password" className={styles.label}>
                     Password
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="Your password goes here"
                         value={password.value}
                         onChange={this.handleInputChange}
+                        className={styles.input}
                     />
                 </label>
                 {error}
@@ -126,6 +130,7 @@ class SignIn extends Component {
                     type="submit"
                     value="Sign In"
                     disabled={!valid}
+                    className={styles.submitBtn}
                 />
             </form>
         );
