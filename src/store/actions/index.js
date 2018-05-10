@@ -10,7 +10,6 @@ export {
 
 export {
     authStart,
-    authFail,
     logout,
     registerSuccess,
     signInSuccess,

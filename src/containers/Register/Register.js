@@ -110,7 +110,10 @@ class Register extends Component {
     render() {
         const { username, email, password } = this.state.form.inputs;
         const { valid } = this.state.form;
-        
+        const { registerError } = this.props;
+
+        let error = registerError ? <span className={styles.error}>{registerError.message}</span> : null;
+
         return (
             <form onSubmit={this.handleFormSubmit} className={styles.form}>
                 <h2 className={styles.heading}>Create an account</h2>
@@ -150,6 +153,7 @@ class Register extends Component {
                         className={styles.input}
                     />
                 </label>
+                {error}
                 <input
                     type="submit"
                     value="Register"
@@ -163,7 +167,8 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        isRegistered: state.auth.isRegistered
+        isRegistered: state.auth.isRegistered,
+        registerError: state.auth.registerError 
     };
 };
 

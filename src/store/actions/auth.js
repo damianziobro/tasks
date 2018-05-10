@@ -1,23 +1,17 @@
 import axios from '../../axiosBaseInstance';
 
 export const AUTH_START = 'AUTH_START';
-export const AUTH_FAIL = 'AUTH_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAIL = 'SIGN_IN_FAIL';
 export const REGISTER = 'REGISTER';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 export const SIGN_IN = 'SIGN_IN';
 
 export const authStart = () => {
     return {
         type: AUTH_START
-    };
-};
-
-export const authFail = () => {
-    return {
-        type: AUTH_FAIL
     };
 };
 
@@ -37,6 +31,13 @@ export const registerSuccess = (username, email) => {
         type: REGISTER_SUCCESS,
         username,
         email
+    };
+};
+
+export const registerFail = (err) => {
+    return {
+        type: REGISTER_FAIL,
+        err
     };
 };
 
@@ -102,7 +103,7 @@ export const register = (username, email, password) => {
                 dispatch(registerSuccess(response.data.data.username, response.data.data.email));
             })
             .catch(err => {
-                dispatch(authFail());
+                dispatch(registerFail(err.response.data));
             });
     };
 };

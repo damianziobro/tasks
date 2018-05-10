@@ -51,3 +51,10 @@
     cursor: not-allowed;
     transform: scale(0.9);
 }
+
+.error {
+    padding: .7em;
+    margin: .7em;
+    text-align: center;
+    background-color: red;
+}

@@ -5,7 +5,7 @@ import {
 import {
     AUTH_START,
     REGISTER_SUCCESS,
-    AUTH_FAIL,
+    REGISTER_FAIL,
     LOGOUT,
     SIGN_IN_SUCCESS,
     SIGN_IN_FAIL
@@ -18,7 +18,8 @@ const initialState = {
     error: false,
     loading: false,
     isRegistered: false,
-    signInError: false
+    signInError: false,
+    registerError: null
 };
 
 const authStart = (state, action) => {
@@ -53,11 +54,9 @@ const signInFail = (state, action) => {
         signInError: true
     });
 };
-
-const authFail = (state, action) => {
+const registerFail = (state, action) => {
     return updateObject(state, {
-        error: true,
-        loading: false
+        registerError: action.err
     });
 };
 
@@ -73,9 +72,9 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_START: return authStart(state, action);
         case REGISTER_SUCCESS: return registerSuccess(state, action);
+        case REGISTER_FAIL: return registerFail(state, action);
         case SIGN_IN_SUCCESS: return signInSuccess(state, action);
         case SIGN_IN_FAIL: return signInFail(state, action);
-        case AUTH_FAIL: return authFail(state, action);
         case LOGOUT: return logout(state, action);
         default:
             return state;
