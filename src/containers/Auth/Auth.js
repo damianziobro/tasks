@@ -8,15 +8,21 @@ import { logout } from '../../store/actions';
 
 class Auth extends Component {
 
-    handleLogoutBtnClick = () => {
-        this.props.logout();
+    handleLogoutBtnClick = (event) => {
+        const { logout } = this.props;
+        logout();
     };
 
     render() {
         const { isAuthenticated, username } = this.props;
 
         if (isAuthenticated) {
-            return <IsLogIn username={username} onLogoutBtnClick={this.handleLogoutBtnClick} />;
+            return (
+                    <IsLogIn
+                        username={username}
+                        onLogoutBtnClick={this.handleLogoutBtnClick}
+                    />
+            );
         }
         return <AuthNav />;
     };

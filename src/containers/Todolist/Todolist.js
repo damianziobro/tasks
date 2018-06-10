@@ -20,7 +20,8 @@ class Todolist extends Component {
     };
 
     componentDidMount() {
-        this.props.onInitTodos();
+        const { onInitTodos } = this.props;
+        onInitTodos();
     };
 
     handleAddTodoFormSubmit = (event) => {

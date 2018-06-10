@@ -66,7 +66,7 @@ class Register extends Component {
         form.inputs = inputs;
         form.valid = formIsValid;
 
-        this.setState({ form: form });
+        this.setState({ form });
     };
 
     handleFormSubmit = (event) => {

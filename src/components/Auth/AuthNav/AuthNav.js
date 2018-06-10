@@ -8,10 +8,14 @@ function AuthNav() {
         <nav className={styles.nav}>
             <ul className={styles.navList}>
                 <li className={styles.navElement}>
-                    <NavLink className={styles.link} to="/signin">Sign In</NavLink>
+                    <NavLink className={styles.link} to="/signin">
+                        Sign In
+                    </NavLink>
                 </li>
                 <li className={styles.navElement}>
-                    <NavLink className={styles.link} to="/register">Create an account</NavLink>
+                    <NavLink className={styles.link} to="/register">
+                        Create an account
+                    </NavLink>
                 </li>
             </ul>
         </nav>

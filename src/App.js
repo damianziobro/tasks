@@ -18,7 +18,8 @@ import styles from './App.css';
 class App extends Component {
 
     componentDidMount() {
-        this.props.onTryAutoSignIn();
+        const { onTryAutoSignIn } = this.props;
+        onTryAutoSignIn();
     };
 
     render() {
@@ -32,7 +33,11 @@ class App extends Component {
                 </header>
                 <main className={styles.main}>
                     <Switch>
-                        <Route path="/" exact render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)} />
+                        <Route
+                            path="/"
+                            exact
+                            render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)}
+                        />
                         <Route path="/register" component={Register} />
                         <Route path="/signin" component={SignIn} />
                         <Route component={NotFound} />
