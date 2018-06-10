@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { register } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
+import Error from '../../components/UI/Error/Error';
+
 import styles from './Register.css';
 
 class Register extends Component {
@@ -112,8 +114,6 @@ class Register extends Component {
         const { valid } = this.state.form;
         const { registerError } = this.props;
 
-        let error = registerError ? <span className={styles.error}>{registerError.message}</span> : null;
-
         return (
             <form onSubmit={this.handleFormSubmit} className={styles.form}>
                 <h2 className={styles.heading}>Create an account</h2>
@@ -153,7 +153,7 @@ class Register extends Component {
                         className={styles.input}
                     />
                 </label>
-                {error}
+                {registerError ? <Error errorMessage={registerError.message} /> : null}
                 <input
                     type="submit"
                     value="Register"
