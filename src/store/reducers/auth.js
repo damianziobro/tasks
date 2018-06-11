@@ -18,7 +18,7 @@ const initialState = {
     error: false,
     loading: false,
     isRegistered: false,
-    signInError: false,
+    signInError: null,
     registerError: null
 };
 
@@ -51,9 +51,10 @@ const signInSuccess = (state, action) => {
 
 const signInFail = (state, action) => {
     return updateObject(state, {
-        signInError: true
+        signInError: action.err
     });
 };
+
 const registerFail = (state, action) => {
     return updateObject(state, {
         registerError: action.err

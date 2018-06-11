@@ -50,9 +50,10 @@ export const signInSuccess = (username, email, token) => {
     };
 };
 
-export const signInFail = () => {
+export const signInFail = (err) => {
     return {
-        type: SIGN_IN_FAIL
+        type: SIGN_IN_FAIL,
+        err
     };
 };
 
@@ -131,7 +132,7 @@ export const signIn = (email, password) => {
                 dispatch(setAutoLogOut(expirationTime));
             })
             .catch(err => {
-                dispatch(signInFail());
+                dispatch(signInFail(err.response.data.message));
             });
     };
 };

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { signIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
+import Error from '../../components/UI/Error/Error';
+
 import styles from './SignIn.css';
 
 class SignIn extends Component {
@@ -96,7 +98,7 @@ class SignIn extends Component {
     render() {
         const { valid } = this.state.form;
         const { email, password } = this.state.form.inputs;
-        const error = this.props.error ? <span>Try again</span> : null;
+        const { signInError } = this.props;
         
         return (
             <form onSubmit={this.handleFormSubmit} className={styles.form}>
@@ -125,7 +127,7 @@ class SignIn extends Component {
                         className={styles.input}
                     />
                 </label>
-                {error}
+                {signInError ? <Error errorMessage={signInError} /> : null}
                 <input
                     type="submit"
                     value="Sign In"
@@ -140,7 +142,7 @@ class SignIn extends Component {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.auth.token !== null,
-        error: state.auth.signInError
+        signInError: state.auth.signInError
     };
 };
 
