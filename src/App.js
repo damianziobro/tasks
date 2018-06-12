@@ -16,48 +16,43 @@ import { tryAutoSignIn } from './store/actions';
 import styles from './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    const { onTryAutoSignIn } = this.props;
+    onTryAutoSignIn();
+  }
 
-    componentDidMount() {
-        const { onTryAutoSignIn } = this.props;
-        onTryAutoSignIn();
-    };
+  render() {
+    const { isAuthenticated } = this.props;
 
-    render() {
-        const { isAuthenticated } = this.props;
+    return (
+      <div className={styles.app}>
+        <header className={styles.header}>
+          <Logo />
+          <Auth />
+        </header>
+        <main className={styles.main}>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)}
+            />
+            <Route path="/register" component={Register} />
+            <Route path="/signin" component={SignIn} />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+}
 
-        return (
-            <div className={styles.app}>
-                <header className={styles.header}>
-                    <Logo />
-                    <Auth />
-                </header>
-                <main className={styles.main}>
-                    <Switch>
-                        <Route
-                            path="/"
-                            exact
-                            render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)}
-                        />
-                        <Route path="/register" component={Register} />
-                        <Route path="/signin" component={SignIn} />
-                        <Route component={NotFound} />
-                    </Switch>
-                </main>
-            </div>
-        );
-    };
-};
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.token !== null,
+});
 
-const mapStateToProps = (state) => {
-    return {
-        isAuthenticated: state.auth.token !== null
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onTryAutoSignIn: () => dispatch(tryAutoSignIn())
-    };
-};
+const mapDispatchToProps = dispatch => ({
+  onTryAutoSignIn: () => dispatch(tryAutoSignIn()),
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

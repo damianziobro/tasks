@@ -5,5 +5,5 @@ import todos from './todos';
 
 export default combineReducers({
   auth,
-  todos
+  todos,
 });
