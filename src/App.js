@@ -16,16 +16,28 @@ import { tryAutoSignIn } from './store/actions';
 import styles from './App.css';
 
 class App extends Component {
+  state = {
+    isUserTabbing: false,
+  }
+
   componentDidMount() {
     const { onTryAutoSignIn } = this.props;
     onTryAutoSignIn();
   }
 
+  handleTabKeyClick = (event) => {
+    this.setState({ isUserTabbing: event.key === 'Tab' });
+  }
+
   render() {
     const { isAuthenticated } = this.props;
+    const { isUserTabbing } = this.state;
 
     return (
-      <div className={styles.app}>
+      <div
+        className={`${styles.app} ${isUserTabbing ? styles.tabbing : null}`}
+        onKeyDown={this.handleTabKeyClick}
+      >
         <header className={styles.header}>
           <Logo />
           <Auth />
