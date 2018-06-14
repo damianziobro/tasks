@@ -1,19 +1,45 @@
 .todoElement {
-    padding: .5em 0;
-    margin: .5em 0;
+    padding: 1em 0;
+    margin: 1em 0;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .checkbox {
+    padding: 10px;
     cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    border: 2px solid #222222;
+    opacity: .7;
+    transition: .3s;
+}
+
+.checkbox:hover {
+    background-color: #222222;
+    opacity: 1;
+}
+
+.todo {
+    margin: 0 1em;
+    flex: 2;
+    overflow: hidden;
 }
 
 .deleteTodoBtn {
+    padding: 10px;
     background: url('../../../assets/img/trash-can.png') no-repeat;
+    width: 20px;
     background-size: 100%;
     border: none;
     cursor: pointer;
+    opacity: .7;
+    transition: .3s;
+}
 
+.deleteTodoBtn:hover {
+    opacity: 1;
 }

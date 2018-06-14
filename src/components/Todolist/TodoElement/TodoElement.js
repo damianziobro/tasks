@@ -7,14 +7,8 @@ function TodoElement({
 }) {
   return (
     <li className={styles.todoElement}>
-      <input
-        id={id}
-        type="checkbox"
-        value="checked"
-        onClick={onCompleteTodo}
-        className={styles.checkbox}
-      />
-      <span>{todo}</span>
+      <button id={id} onClick={onCompleteTodo} className={styles.checkbox} />
+      <span className={styles.todo}>{todo}</span>
       <button id={id} onClick={onDeleteTodo} className={styles.deleteTodoBtn} />
     </li>
   );
