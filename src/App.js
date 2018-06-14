@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Logo from './components/Logo/Logo';
 import NotFound from './components/UI/NotFound/NotFound';
-import MustBeLogged from './components/MustBeLogged/MustBeLogged';
 
 import Auth from './containers/Auth/Auth';
 import Todolist from './containers/Todolist/Todolist';
@@ -47,7 +46,7 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={() => (isAuthenticated ? <Todolist /> : <MustBeLogged />)}
+              render={() => (isAuthenticated ? <Todolist /> : <Redirect to="/signin" />)}
             />
             <Route path="/register" component={Register} />
             <Route path="/signin" component={SignIn} />
