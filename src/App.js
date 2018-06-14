@@ -35,7 +35,7 @@ class App extends Component {
 
     return (
       <div
-        className={`${styles.app} ${isUserTabbing ? styles.tabbing : null}`}
+        className={isUserTabbing ? null : styles.removeFocus}
         onKeyDown={this.handleTabKeyClick}
       >
         <header className={styles.header}>

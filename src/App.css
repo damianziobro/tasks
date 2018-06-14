@@ -13,3 +13,9 @@
     justify-content: center;
     align-items: center;
 }
+
+.removeFocus input:focus,
+.removeFocus a:focus,
+.removeFocus button:focus {
+    outline: none;
+}
