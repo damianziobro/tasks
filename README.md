@@ -19,6 +19,8 @@ npm install
 
 ## Development
 
+Before running in development, install and configure Redux DevTools extension: https://github.com/zalmoxisus/redux-devtools-extension or remove configuration of Redux DevTools in index.js, otherwise an error will occur.
+
 ```bash
 npm start
 ```
