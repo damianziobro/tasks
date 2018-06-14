@@ -100,7 +100,7 @@ class SignIn extends Component {
       const { signInError } = this.props;
 
       return (
-        <form onSubmit={this.handleFormSubmit} className={styles.form}>
+        <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
           <h2 className={styles.heading}>Sign In</h2>
           <label htmlFor="email" className={styles.label}>
                     Email

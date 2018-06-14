@@ -114,7 +114,7 @@ class Register extends Component {
       const { registerError } = this.props;
 
       return (
-        <form onSubmit={this.handleFormSubmit} className={styles.form}>
+        <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
           <h2 className={styles.heading}>Create an account</h2>
           <label htmlFor="username" className={styles.label}>
                     Username

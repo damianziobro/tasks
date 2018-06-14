@@ -9,7 +9,7 @@ function AuthNav() {
       <ul className={styles.navList}>
         <li className={styles.navElement}>
           <NavLink className={styles.link} to="/signin">
-                        Sign In
+            Sign In
           </NavLink>
         </li>
         <li className={styles.navElement}>
