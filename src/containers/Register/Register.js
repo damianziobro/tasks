@@ -5,6 +5,7 @@ import { register } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
 import Error from '../../components/UI/Error/Error';
+import Loader from '../../components/UI/Loader/Loader';
 
 import styles from './Register.css';
 
@@ -111,7 +112,7 @@ class Register extends Component {
     render() {
       const { username, email, password } = this.state.form.inputs;
       const { valid } = this.state.form;
-      const { registerError } = this.props;
+      const { registerError, isLoading } = this.props;
 
       return (
         <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
@@ -153,6 +154,7 @@ class Register extends Component {
             />
           </label>
           {registerError ? <Error errorMessage={registerError.message} /> : null}
+          {isLoading ? <Loader /> : null}
           <input
             type="submit"
             value="Register"
@@ -167,6 +169,7 @@ class Register extends Component {
 const mapStateToProps = state => ({
   isRegistered: state.auth.isRegistered,
   registerError: state.auth.registerError,
+  isLoading: state.auth.loading,
 });
 
 const mapDispatchToProps = dispatch => ({

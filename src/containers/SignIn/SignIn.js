@@ -5,6 +5,7 @@ import { signIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
 import Error from '../../components/UI/Error/Error';
+import Loader from '../../components/UI/Loader/Loader';
 
 import styles from './SignIn.css';
 
@@ -97,7 +98,7 @@ class SignIn extends Component {
     render() {
       const { valid } = this.state.form;
       const { email, password } = this.state.form.inputs;
-      const { signInError } = this.props;
+      const { signInError, isLoading } = this.props;
 
       return (
         <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
@@ -127,6 +128,7 @@ class SignIn extends Component {
             />
           </label>
           {signInError ? <Error errorMessage={signInError} /> : null}
+          {isLoading ? <Loader /> : null}
           <input
             type="submit"
             value="Sign In"
@@ -141,6 +143,7 @@ class SignIn extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.token !== null,
   signInError: state.auth.signInError,
+  isLoading: state.auth.loading,
 });
 
 const mapDispatchToProps = dispatch => ({
