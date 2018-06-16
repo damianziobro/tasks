@@ -46,6 +46,7 @@
     transition: .3s;
     transform: scale(1);
     cursor: pointer;
+    background-color: #ffffff;
 }
 
 .submitBtn:disabled {
