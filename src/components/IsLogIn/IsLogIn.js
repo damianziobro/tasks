@@ -6,7 +6,7 @@ function IsLogIn({ username, onLogoutBtnClick }) {
   return (
     <div className={styles.container}>
       <span className={styles.loggedInAs}>
-                Logged in as:
+                User:
         <span className={styles.username}>
           {username}
         </span>

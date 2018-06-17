@@ -13,13 +13,13 @@ function AddTodo({
         type="text"
         value={value}
         onChange={onInputChange}
-        placeholder="Add a to-do..."
+        placeholder="Add a task..."
         className={styles.input}
       />
       <input
         type="image"
         src={arrow}
-        alt="Add todo"
+        alt="Add task"
         value="Add"
         disabled={!valid}
         className={styles.submitBtn}
