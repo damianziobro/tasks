@@ -133,8 +133,8 @@ class SignIn extends Component {
               className={styles.input}
             />
           </label>
-          {signInError ? <Error errorMessage={signInError} /> : null}
-          {isLoading ? <Loader /> : null}
+          {signInError && <Error errorMessage={signInError} />}
+          {isLoading && <Loader />}
           <input
             type="submit"
             value="Sign In"

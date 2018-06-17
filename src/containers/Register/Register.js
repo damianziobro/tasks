@@ -154,8 +154,8 @@ class Register extends Component {
               className={styles.input}
             />
           </label>
-          {registerError ? <Error errorMessage={registerError.message} /> : null}
-          {isLoading ? <Loader /> : null}
+          {registerError && <Error errorMessage={registerError.message} />}
+          {isLoading && <Loader />}
           <input
             type="submit"
             value="Register"
