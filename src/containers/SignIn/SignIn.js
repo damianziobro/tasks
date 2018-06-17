@@ -104,7 +104,7 @@ class SignIn extends Component {
     render() {
       const { valid } = this.state.form;
       const { email, password } = this.state.form.inputs;
-      const { signInError, isLoading } = this.props;
+      const { error, isLoading } = this.props;
 
       return (
         <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
@@ -133,7 +133,7 @@ class SignIn extends Component {
               className={styles.input}
             />
           </label>
-          {signInError && <Error errorMessage={signInError} />}
+          {error && <Error errorMessage={error} />}
           {isLoading && <Loader />}
           <input
             type="submit"
@@ -152,10 +152,10 @@ class SignIn extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.token !== null,
-  signInError: state.auth.signInError,
-  isLoading: state.auth.loading,
+const mapStateToProps = ({ signIn: { isAuthenticated, error, isLoading } }) => ({
+  isAuthenticated,
+  error,
+  isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

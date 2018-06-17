@@ -91,10 +91,10 @@ class Todolist extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-  error: state.todos.error,
-  todos: state.todos.todos,
-  listId: state.todos.listId,
+const mapStateToProps = ({ todos: { error, todos, listId } }) => ({
+  error,
+  todos,
+  listId,
 });
 
 const mapDispatchToProps = dispatch => ({

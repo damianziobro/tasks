@@ -9,12 +9,17 @@ export {
 } from './todos';
 
 export {
-  authStart,
+  signInStart,
   logout,
-  registerSuccess,
   signInSuccess,
   signInFail,
-  register,
   signIn,
   tryAutoSignIn,
-} from './auth';
+} from './signIn';
+
+export {
+  register,
+  registerStart,
+  registerSuccess,
+  registerFail,
+} from './register';

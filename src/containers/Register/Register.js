@@ -113,7 +113,7 @@ class Register extends Component {
     render() {
       const { username, email, password } = this.state.form.inputs;
       const { valid } = this.state.form;
-      const { registerError, isLoading } = this.props;
+      const { error, isLoading } = this.props;
 
       return (
         <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
@@ -154,7 +154,7 @@ class Register extends Component {
               className={styles.input}
             />
           </label>
-          {registerError && <Error errorMessage={registerError.message} />}
+          {error && <Error errorMessage={error.message} />}
           {isLoading && <Loader />}
           <input
             type="submit"
@@ -173,10 +173,10 @@ class Register extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-  isRegistered: state.auth.isRegistered,
-  registerError: state.auth.registerError,
-  isLoading: state.auth.loading,
+const mapStateToProps = ({ register: { isRegistered, error, isLoading } }) => ({
+  isRegistered,
+  error,
+  isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
