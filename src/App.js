@@ -10,18 +10,11 @@ import Todolist from './containers/Todolist/Todolist';
 import Register from './containers/Register/Register';
 import SignIn from './containers/SignIn/SignIn';
 
-import { tryAutoSignIn } from './store/actions';
-
 import styles from './App.css';
 
 class App extends Component {
   state = {
     isUserTabbing: false,
-  }
-
-  componentDidMount() {
-    const { onTryAutoSignIn } = this.props;
-    onTryAutoSignIn();
   }
 
   handleTabKeyClick = (event) => {
@@ -62,8 +55,4 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.token !== null,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onTryAutoSignIn: () => dispatch(tryAutoSignIn()),
-});
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps)(App));

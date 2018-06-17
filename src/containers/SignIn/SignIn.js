@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { signIn } from '../../store/actions';
+import { signIn, tryAutoSignIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
 
 import Error from '../../components/UI/Error/Error';
@@ -33,6 +33,11 @@ class SignIn extends Component {
         valid: false,
       },
     };
+
+    componentWillMount() {
+      const { onTryAutoSignIn } = this.props;
+      onTryAutoSignIn();
+    }
 
     componentDidUpdate() {
       const { isAuthenticated, history } = this.props;
@@ -148,6 +153,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onSignIn: (email, password) => dispatch(signIn(email, password)),
+  onTryAutoSignIn: () => dispatch(tryAutoSignIn()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
