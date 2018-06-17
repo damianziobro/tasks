@@ -6,10 +6,10 @@ import logo from '../../assets/img/logo.png';
 
 function Logo() {
   return (
-    <div className={styles.logo}>
-      <h1 className={styles.heading}>To Do List</h1>
+    <a href="/" className={styles.logo}>
       <img className={styles.logoImg} src={logo} alt="Website logo" />
-    </div>
+      <h1 className={styles.heading}>Tasks</h1>
+    </a>
   );
 }
 
