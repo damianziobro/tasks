@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { logout } from './store/actions';
+
 import Logo from './components/Logo/Logo';
 import NotFound from './components/UI/NotFound/NotFound';
+import IsLogIn from './components/IsLogIn/IsLogIn';
 
-import Auth from './containers/Auth/Auth';
 import Todolist from './containers/Todolist/Todolist';
 import Register from './containers/Register/Register';
 import SignIn from './containers/SignIn/SignIn';
@@ -21,8 +23,13 @@ class App extends Component {
     this.setState({ isUserTabbing: event.key === 'Tab' });
   }
 
+  handleLogoutBtnClick = () => {
+    const { onLogout } = this.props;
+    onLogout();
+  };
+
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, username } = this.props;
     const { isUserTabbing } = this.state;
 
     return (
@@ -32,7 +39,10 @@ class App extends Component {
       >
         <header className={styles.header}>
           <Logo />
-          <Auth />
+          {isAuthenticated && <IsLogIn
+            username={username}
+            onLogoutBtnClick={this.handleLogoutBtnClick}
+          />}
         </header>
         <main className={styles.main}>
           <Switch>
@@ -53,6 +63,11 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.token !== null,
+  username: state.auth.username,
 });
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => ({
+  onLogout: () => dispatch(logout()),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

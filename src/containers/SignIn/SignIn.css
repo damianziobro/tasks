@@ -53,3 +53,13 @@
     cursor: not-allowed;
     transform: scale(0.9);
 }
+
+.redirect {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.redirectLink {
+    padding-left: .5em;
+    text-decoration: none;
+}

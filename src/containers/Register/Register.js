@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { register } from '../../store/actions';
 import { isValid } from '../../shared/utility';
@@ -161,6 +162,12 @@ class Register extends Component {
             disabled={!valid}
             className={styles.submitBtn}
           />
+          <span className={styles.redirect}>
+            Already have an account?
+            <Link to="/signin" className={styles.redirectLink}>
+              Sign In
+            </Link>
+          </span>
         </form>
       );
     }

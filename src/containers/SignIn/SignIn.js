@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { signIn, tryAutoSignIn } from '../../store/actions';
 import { isValid } from '../../shared/utility';
@@ -140,6 +141,12 @@ class SignIn extends Component {
             disabled={!valid}
             className={styles.submitBtn}
           />
+          <span className={styles.redirect}>
+            No account?
+            <Link to="/register" className={styles.redirectLink}>
+              Create an account
+            </Link>
+          </span>
         </form>
       );
     }

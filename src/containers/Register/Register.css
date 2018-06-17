@@ -61,3 +61,13 @@
     text-align: center;
     background-color: red;
 }
+
+.redirect {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.redirectLink {
+    padding-left: .5em;
+    text-decoration: none;
+}
