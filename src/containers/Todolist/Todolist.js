@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import AddTodo from '../../components/Todolist/AddTodo/AddTodo';
 import TodolistComponent from '../../components/Todolist/Todolist';
+import Loader from '../../components/UI/Loader/Loader';
 
 import { initTodos, addTodo, deleteTodo } from '../../store/actions';
 import { isValid } from '../../shared/utility';
@@ -71,7 +72,7 @@ class Todolist extends Component {
 
     render() {
       const { value, valid } = this.state.todo;
-      const { todos } = this.props;
+      const { todos, addTodoLoading } = this.props;
 
       return (
         <div>
@@ -86,15 +87,24 @@ class Todolist extends Component {
             onDeleteTodo={this.handleDeleteTodo}
             onCompleteTodo={this.handleCompleteTodo}
           />
+          {addTodoLoading && <Loader />}
         </div>
       );
     }
 }
 
-const mapStateToProps = ({ todos: { error, todos, listId } }) => ({
+const mapStateToProps = ({
+  todos: {
+    error,
+    todos,
+    listId,
+    addTodoLoading,
+  },
+}) => ({
   error,
   todos,
   listId,
+  addTodoLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
