@@ -8,7 +8,7 @@
 }
 
 .checkbox {
-    padding: 10px;
+    padding: 1em;
     cursor: pointer;
     width: 20px;
     height: 20px;
@@ -16,6 +16,7 @@
     border: 2px solid #222222;
     opacity: .7;
     transition: .3s;
+    background-color: transparent;
 }
 
 .checkbox:hover {
@@ -30,11 +31,11 @@
 }
 
 .deleteTodoBtn {
-    padding: 10px;
+    padding: 1em;
     background: url('../../../assets/img/trash-can.png') no-repeat;
     width: 20px;
     background-size: 100%;
-    border: none;
+    border: 0;
     cursor: pointer;
     opacity: .7;
     transition: .3s;

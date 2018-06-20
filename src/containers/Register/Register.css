@@ -5,8 +5,7 @@
 }
 
 .heading {
-    padding: 2em .7em;
-    margin: 0;
+    margin-bottom: 1em;
     font-weight: 700;
     font-size: 1.5em;
     text-transform: uppercase;
@@ -27,11 +26,12 @@
     padding: .7em 0;
     margin: .7em 0;
     width: 300px;
-    border: none;
+    border: 0;
     border-bottom: 1px solid grey;
     background-color: #ffffff;
     font-size: .7em;
     box-shadow: 0 0 0px 1000px #ffffff inset;
+    border-radius: 0;
 }
 
 
@@ -47,6 +47,7 @@
     transform: scale(1);
     cursor: pointer;
     background-color: #ffffff;
+    border-radius: 0;
 }
 
 .submitBtn:disabled {

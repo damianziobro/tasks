@@ -3,3 +3,9 @@
     padding: 0;
     width: 60vw;
 }
+
+@media screen and (max-width: 500px) {
+    .todolist {
+        width: 80vw;
+    }
+}

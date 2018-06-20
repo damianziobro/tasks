@@ -5,8 +5,7 @@
 }
 
 .heading {
-    padding: 2em .7em;
-    margin: 0;
+    margin-bottom: 1em;
     font-weight: 700;
     font-size: 1.5em;
     text-transform: uppercase;
@@ -27,8 +26,9 @@
     padding: .7em 0;
     margin: .7em 0;
     width: 300px;
-    border: none;
+    border: 0;
     border-bottom: 1px solid grey;
+    border-radius: 0;
     background-color: #ffffff;
     font-size: .7em;
     box-shadow: 0 0 0px 1000px white inset;
@@ -38,6 +38,7 @@
     margin: .7em 3em;
     padding: .7em;
     border: 3px solid #000000;
+    border-radius: 0;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 1em;
