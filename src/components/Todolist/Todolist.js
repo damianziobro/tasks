@@ -4,7 +4,9 @@ import styles from './Todolist.css';
 
 import TodoElement from './TodoElement/TodoElement';
 
-function Todolist({ todos, onDeleteTodo, onCompleteTodo }) {
+function Todolist({
+  todos, onDeleteTodo, onCompleteTodo,
+}) {
   return (
     <ul className={styles.todolist}>
       {todos.map(({ body, id }) => (<TodoElement

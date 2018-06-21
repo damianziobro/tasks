@@ -11,6 +11,8 @@ import {
   SET_TODO,
   ADD_TODO_SUCCESS,
   DELETE_TODO_FROM_STATE,
+  DELETE_TODO_SUCCESS,
+  DELETE_TODO_START,
 } from '../actions/todos';
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   loading: false,
   listId: null,
   addTodoLoading: false,
+  deleteTodoLoading: false,
 };
 
 const fetchTodosStart = state => updateObject(state, { loading: true });
@@ -45,6 +48,10 @@ const deleteTodoFromState = (state, action) => {
   return updateObject(state, { todos: newTodos });
 };
 
+const deleteTodoStart = state => updateObject(state, { deleteTodoLoading: true });
+
+const deleteTodoSuccess = state => updateObject(state, { deleteTodoLoading: false });
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TODOS_START: return fetchTodosStart(state, action);
@@ -55,6 +62,8 @@ const reducer = (state = initialState, action) => {
     case SET_TODO: return setTodo(state, action);
     case ADD_TODO_SUCCESS: return addTodoSuccess(state, action);
     case DELETE_TODO_FROM_STATE: return deleteTodoFromState(state, action);
+    case DELETE_TODO_START: return deleteTodoStart(state, action);
+    case DELETE_TODO_SUCCESS: return deleteTodoSuccess(state, action);
     default:
       return state;
   }

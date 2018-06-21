@@ -11,6 +11,8 @@ export const ADD_TODO = 'ADD_TODO';
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_TODO_FROM_STATE = 'DELETE_TODO_FROM_STATE';
+export const DELETE_TODO_START = 'DELETE_TODO_START';
+export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
 
 export const error = () => ({
   type: ERROR,
@@ -83,12 +85,21 @@ export const addTodo = (todo, listId) => (dispatch) => {
     });
 };
 
+export const deleteTodoStart = () => ({
+  type: DELETE_TODO_START,
+});
+
 const deleteTodoFromState = todoId => ({
   type: DELETE_TODO_FROM_STATE,
   todoId,
 });
 
+export const deleteTodoSuccess = () => ({
+  type: DELETE_TODO_SUCCESS,
+});
+
 export const deleteTodo = (todoId, listId) => (dispatch) => {
+  dispatch(deleteTodoStart());
   const url = `list/${listId}/task/${todoId}`;
   const config = {
     headers: {
@@ -99,6 +110,7 @@ export const deleteTodo = (todoId, listId) => (dispatch) => {
   axios.delete(url, config)
     .then(() => {
       dispatch(deleteTodoFromState(todoId));
+      dispatch(deleteTodoSuccess());
     })
     .catch((err) => {
       dispatch(error(err));
