@@ -1,155 +1,77 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 import { signIn, tryAutoSignIn } from '../../store/actions';
-import { isValid } from '../../shared/utility';
 
-import Error from '../../components/UI/Error/Error';
 import Loader from '../../components/UI/Loader/Loader';
 
 import styles from './SignIn.css';
 
 class SignIn extends Component {
-    state = {
-      form: {
-        inputs: {
-          email: {
-            value: '',
-            validation: {
-              required: true,
-              isEmail: true,
-            },
-            valid: false,
-          },
-          password: {
-            value: '',
-            validation: {
-              required: true,
-              minLength: 8,
-            },
-            valid: false,
-          },
-        },
-        valid: false,
-      },
-    };
+  componentWillMount() {
+    const { onTryAutoSignIn } = this.props;
+    onTryAutoSignIn();
+  }
 
-    componentWillMount() {
-      const { onTryAutoSignIn } = this.props;
-      onTryAutoSignIn();
+  componentDidUpdate() {
+    const { isAuthenticated, history } = this.props;
+
+    if (isAuthenticated) {
+      history.push('/');
     }
+  }
 
-    componentDidUpdate() {
-      const { isAuthenticated, history } = this.props;
+  render() {
+    const {
+      isLoading,
+      errors,
+      touched,
+      isSubmitting,
+    } = this.props;
 
-      if (isAuthenticated) {
-        history.push('/');
-      }
-    }
-
-    handleInputChange = (event) => {
-      const form = { ...this.state.form };
-      const inputs = { ...this.state.form.inputs };
-      const input = {
-        ...inputs[event.target.name],
-      };
-
-      input.value = event.target.value;
-      input.valid = isValid(input.value, input.validation);
-      inputs[event.target.name] = input;
-
-      let formIsValid = true;
-      for (const inputIdentifier in inputs) {
-        formIsValid = inputs[inputIdentifier].valid && formIsValid;
-      }
-
-      form.inputs = inputs;
-      form.valid = formIsValid;
-
-      this.setState({ form });
-    }
-
-    handleFormSubmit = (event) => {
-      event.preventDefault();
-      const { email, password } = this.state.form.inputs;
-
-      this.props.onSignIn(email.value, password.value);
-
-      this.setState({
-        form: {
-          inputs: {
-            email: {
-              value: '',
-              validation: {
-                required: true,
-                isEmail: true,
-              },
-              valid: false,
-            },
-            password: {
-              value: '',
-              validation: {
-                required: true,
-                minLength: 8,
-              },
-              valid: false,
-            },
-          },
-          valid: false,
-        },
-      });
-    };
-
-    render() {
-      const { valid } = this.state.form;
-      const { email, password } = this.state.form.inputs;
-      const { error, isLoading } = this.props;
-
-      return (
-        <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
-          <h2 className={styles.heading}>Sign In</h2>
-          <label htmlFor="email" className={styles.label}>
-                    Email
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Your e-mail goes here"
-              value={email.value}
-              onChange={this.handleInputChange}
-              className={styles.input}
-            />
-          </label>
-          <label htmlFor="password" className={styles.label}>
-                    Password
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Your password goes here"
-              value={password.value}
-              onChange={this.handleInputChange}
-              className={styles.input}
-            />
-          </label>
-          {error && <Error errorMessage={error} />}
-          {isLoading && <Loader />}
-          <input
-            type="submit"
-            value="Sign In"
-            disabled={!valid}
-            className={styles.submitBtn}
+    return (
+      <Form className={styles.form}>
+        <h2 className={styles.heading}>Sign In</h2>
+        <label htmlFor="email" className={styles.label}>
+          Email
+          <Field
+            name="email"
+            type="email"
+            placeholder="Your e-mail goes here"
+            className={styles.input}
           />
-          <span className={styles.redirect}>
+          { touched.email && errors.email && <p className={styles.error}>{errors.email}</p> }
+        </label>
+        <label htmlFor="password" className={styles.label}>
+          Password
+          <Field
+            name="password"
+            type="password"
+            placeholder="Your password goes here"
+            className={styles.input}
+          />
+          {
+            touched.password
+            && errors.password
+            && <p className={styles.error}>{errors.password}</p>
+          }
+        </label>
+        {isLoading && <Loader />}
+        <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
+          Sign In
+        </button>
+        <span className={styles.redirect}>
             No account?
-            <Link to="/register" className={styles.redirectLink}>
+          <Link to="/register" className={styles.redirectLink}>
               Create an account
-            </Link>
-          </span>
-        </form>
-      );
-    }
+          </Link>
+        </span>
+      </Form>
+    );
+  }
 }
 
 const mapStateToProps = ({ signIn: { isAuthenticated, error, isLoading } }) => ({
@@ -163,4 +85,25 @@ const mapDispatchToProps = dispatch => ({
   onTryAutoSignIn: () => dispatch(tryAutoSignIn()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+
+const SignInFormik = withFormik({
+  mapPropsToValues() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
+  validationSchema: Yup.object().shape({
+    email: Yup.string().email().required(),
+    password: Yup.string().min(8).required(),
+  }),
+  handleSubmit({ email, password }, {
+    props, resetForm, setSubmitting,
+  }) {
+    props.onSignIn(email, password);
+    resetForm();
+    setSubmitting();
+  },
+})(SignIn);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignInFormik);

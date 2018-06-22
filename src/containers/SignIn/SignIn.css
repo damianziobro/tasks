@@ -43,16 +43,14 @@
     font-weight: 700;
     font-size: 1em;
     color: #000000;
-    transition: .3s;
-    transform: scale(1);
     cursor: pointer;
+    transition: .3s;
     background-color: #ffffff;
 }
 
-.submitBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: scale(0.9);
+.submitBtn:hover {
+    color: #ffffff;
+    background-color: #000000;
 }
 
 .redirect {
@@ -63,4 +61,9 @@
 .redirectLink {
     padding-left: .5em;
     text-decoration: none;
+}
+
+.error {
+    font-size: .8em;
+    text-transform: none;
 }
