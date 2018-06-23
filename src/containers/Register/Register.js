@@ -20,7 +20,6 @@ class Register extends Component {
   }
 
   render() {
-    // error import
     const {
       isLoading,
       errors,
@@ -88,14 +87,14 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = ({ register: { isRegistered, error, isLoading } }) => ({
+const mapStateToProps = ({ register: { isRegistered, isLoading } }) => ({
   isRegistered,
-  error,
   isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onRegister: (username, email, password) => dispatch(register(username, email, password)),
+  onRegister: (values, setErrors, setSubmitting) =>
+    dispatch(register(values, setErrors, setSubmitting)),
 });
 
 
@@ -112,10 +111,8 @@ const RegisterFormik = withFormik({
     email: Yup.string().email().required(),
     password: Yup.string().min(8).required(),
   }),
-  handleSubmit({ username, email, password }, { props, resetForm, setSubmitting }) {
-    props.onRegister(username, email, password);
-    resetForm();
-    setSubmitting();
+  handleSubmit(values, { props, setErrors, setSubmitting }) {
+    props.onRegister(values, setErrors, setSubmitting);
   },
 })(Register);
 

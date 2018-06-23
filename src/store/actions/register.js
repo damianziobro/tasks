@@ -15,26 +15,22 @@ export const registerSuccess = (username, email) => ({
   email,
 });
 
-export const registerFail = error => ({
+export const registerFail = () => ({
   type: REGISTER_FAIL,
-  error,
 });
 
-export const register = (username, email, password) => (dispatch) => {
+export const register = (values, setErrors, setSubmitting) => (dispatch) => {
   dispatch(registerStart());
 
   const url = 'register';
-  const registerData = {
-    username,
-    email,
-    password,
-  };
 
-  axios.post(url, registerData)
+  axios.post(url, values)
     .then(({ data: { data: { username, email } } }) => {
       dispatch(registerSuccess(username, email));
     })
-    .catch((error) => {
-      dispatch(registerFail(error.response.data));
+    .catch(({ response: { data: { errors } } }) => {
+      dispatch(registerFail());
+      setSubmitting(false);
+      setErrors(errors);
     });
 };

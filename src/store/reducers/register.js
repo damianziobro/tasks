@@ -11,26 +11,26 @@ import {
 const initialState = {
   username: null,
   email: null,
-  error: null,
+  isError: false,
   isLoading: false,
   isRegistered: false,
 };
 
 const registerStart = state => updateObject(state, {
-  error: null,
+  isError: false,
   isLoading: true,
 });
 
 const registerSuccess = (state, { username, email }) => updateObject(state, {
   username,
   email,
-  error: null,
+  isError: false,
   isLoading: false,
   isRegistered: true,
 });
 
-const registerFail = (state, { error }) => updateObject(state, {
-  error,
+const registerFail = state => updateObject(state, {
+  isError: true,
   isLoading: false,
 });
 
