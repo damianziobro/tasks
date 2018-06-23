@@ -1,176 +1,91 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 
 import { register } from '../../store/actions';
-import { isValid } from '../../shared/utility';
 
-import Error from '../../components/UI/Error/Error';
 import Loader from '../../components/UI/Loader/Loader';
 
 import styles from './Register.css';
 
 class Register extends Component {
-    state = {
-      form: {
-        inputs: {
-          username: {
-            value: '',
-            validation: {
-              required: true,
-            },
-            valid: false,
-          },
-          email: {
-            value: '',
-            validation: {
-              required: true,
-              isEmail: true,
-            },
-            valid: false,
-          },
-          password: {
-            value: '',
-            validation: {
-              required: true,
-              minLength: 8,
-            },
-            valid: false,
-          },
-        },
-        valid: false,
-      },
-    };
+  componentDidUpdate() {
+    const { isRegistered, history } = this.props;
 
-    componentDidUpdate() {
-      const { isRegistered, history } = this.props;
-
-      if (isRegistered) {
-        history.push('/signin');
-      }
+    if (isRegistered) {
+      history.push('/signin');
     }
+  }
 
-    handleInputChange = (event) => {
-      const form = { ...this.state.form };
-      const inputs = { ...this.state.form.inputs };
-      const input = {
-        ...inputs[event.target.name],
-      };
+  render() {
+    // error import
+    const {
+      isLoading,
+      errors,
+      touched,
+      isSubmitting,
+    } = this.props;
 
-      input.value = event.target.value;
-      input.valid = isValid(input.value, input.validation);
-      inputs[event.target.name] = input;
-
-      let formIsValid = true;
-      for (const inputIdentifier in inputs) {
-        formIsValid = inputs[inputIdentifier].valid && formIsValid;
-      }
-
-      form.inputs = inputs;
-      form.valid = formIsValid;
-
-      this.setState({ form });
-    };
-
-    handleFormSubmit = (event) => {
-      event.preventDefault();
-      const { username, email, password } = this.state.form.inputs;
-
-      this.props.onRegister(username.value, email.value, password.value);
-
-      this.setState({
-        form: {
-          inputs: {
-            username: {
-              value: '',
-              validation: {
-                required: true,
-              },
-              valid: false,
-            },
-            email: {
-              value: '',
-              validation: {
-                required: true,
-                isEmail: true,
-              },
-              valid: false,
-            },
-            password: {
-              value: '',
-              validation: {
-                required: true,
-                minLength: 8,
-              },
-              valid: false,
-            },
-          },
-          valid: false,
-        },
-      });
-    };
-
-    render() {
-      const { username, email, password } = this.state.form.inputs;
-      const { valid } = this.state.form;
-      const { error, isLoading } = this.props;
-
-      return (
-        <form onSubmit={this.handleFormSubmit} className={styles.form} autoComplete="off">
-          <h2 className={styles.heading}>Create an account</h2>
-          <label htmlFor="username" className={styles.label}>
-                    Username
-            <input
-              id="username"
-              name="username"
-              type="text"
-              placeholder="Your username goes here"
-              value={username.value}
-              onChange={this.handleInputChange}
-              className={styles.input}
-            />
-          </label>
-          <label htmlFor="email" className={styles.label}>
-                    Email
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="Your e-mail goes here"
-              value={email.value}
-              onChange={this.handleInputChange}
-              className={styles.input}
-            />
-          </label>
-          <label htmlFor="password" className={styles.label}>
-                    Password
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Your password goes here"
-              value={password.value}
-              onChange={this.handleInputChange}
-              className={styles.input}
-            />
-          </label>
-          {error && <Error errorMessage={error.message} />}
-          {isLoading && <Loader />}
-          <input
-            type="submit"
-            value="Register"
-            disabled={!valid}
-            className={styles.submitBtn}
+    return (
+      <Form className={styles.form}>
+        <h2 className={styles.heading}>Create an account</h2>
+        <label htmlFor="username" className={styles.label}>
+          Username
+          <Field
+            name="username"
+            type="username"
+            placeholder="Your username goes here"
+            className={styles.input}
           />
-          <span className={styles.redirect}>
-            Already have an account?
-            <Link to="/signin" className={styles.redirectLink}>
+          {
+            touched.username &&
+            errors.username &&
+            <p className={styles.error}>{errors.username}</p>
+          }
+        </label>
+        <label htmlFor="email" className={styles.label}>
+          Email
+          <Field
+            name="email"
+            type="email"
+            placeholder="Your e-mail goes here"
+            className={styles.input}
+          />
+          {
+            touched.email &&
+            errors.email &&
+            <p className={styles.error}>{errors.email}</p>
+          }
+        </label>
+        <label htmlFor="password" className={styles.label}>
+          Password
+          <Field
+            name="password"
+            type="password"
+            placeholder="Your password goes here"
+            className={styles.input}
+          />
+          {
+            touched.password &&
+            errors.password &&
+            <p className={styles.error}>{errors.password}</p>
+          }
+        </label>
+        {isLoading && <Loader />}
+        <button type="submit" disabled={isSubmitting} className={styles.submitBtn}>
+          Register
+        </button>
+        <span className={styles.redirect}>
+          Already have an account?
+          <Link to="/signin" className={styles.redirectLink}>
               Sign In
-            </Link>
-          </span>
-        </form>
-      );
-    }
+          </Link>
+        </span>
+      </Form>
+    );
+  }
 }
 
 const mapStateToProps = ({ register: { isRegistered, error, isLoading } }) => ({
@@ -183,4 +98,25 @@ const mapDispatchToProps = dispatch => ({
   onRegister: (username, email, password) => dispatch(register(username, email, password)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
+const RegisterFormik = withFormik({
+  mapPropsToValues() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    };
+  },
+  validationSchema: Yup.object().shape({
+    username: Yup.string().max(30).required(),
+    email: Yup.string().email().required(),
+    password: Yup.string().min(8).required(),
+  }),
+  handleSubmit({ username, email, password }, { props, resetForm, setSubmitting }) {
+    props.onRegister(username, email, password);
+    resetForm();
+    setSubmitting();
+  },
+})(Register);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormik);

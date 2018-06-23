@@ -39,28 +39,24 @@
     margin: .7em 3em;
     padding: .7em;
     border: 3px solid #000000;
+    border-radius: 0;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 1em;
     color: #000000;
-    transition: .3s;
-    transform: scale(1);
     cursor: pointer;
+    transition: .3s;
     background-color: #ffffff;
-    border-radius: 0;
 }
 
-.submitBtn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: scale(0.9);
+.submitBtn:hover {
+    color: #ffffff;
+    background-color: #000000;
 }
 
 .error {
-    padding: .7em;
-    margin: .7em;
-    text-align: center;
-    background-color: red;
+    font-size: .8em;
+    text-transform: none;
 }
 
 .redirect {
