@@ -81,7 +81,8 @@ const mapStateToProps = ({ signIn: { isAuthenticated, error, isLoading } }) => (
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSignIn: (email, password) => dispatch(signIn(email, password)),
+  onSignIn: (values, setErrors, setSubmitting) =>
+    dispatch(signIn(values, setErrors, setSubmitting)),
   onTryAutoSignIn: () => dispatch(tryAutoSignIn()),
 });
 
@@ -97,12 +98,10 @@ const SignInFormik = withFormik({
     email: Yup.string().email().required(),
     password: Yup.string().min(8).required(),
   }),
-  handleSubmit({ email, password }, {
-    props, resetForm, setSubmitting,
+  handleSubmit(values, {
+    props, setSubmitting, setErrors,
   }) {
-    props.onSignIn(email, password);
-    resetForm();
-    setSubmitting();
+    props.onSignIn(values, setErrors, setSubmitting);
   },
 })(SignIn);
 

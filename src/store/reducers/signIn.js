@@ -13,13 +13,13 @@ const initialState = {
   token: null,
   username: null,
   email: null,
-  error: null,
+  isError: false,
   isLoading: false,
   isAuthenticated: false,
 };
 
 const signInStart = state => updateObject(state, {
-  error: null,
+  isError: false,
   isLoading: true,
 });
 
@@ -27,13 +27,13 @@ const signInSuccess = (state, { username, email, token }) => updateObject(state,
   username,
   email,
   token,
-  error: null,
+  isError: false,
   isLoading: false,
   isAuthenticated: true,
 });
 
-const signInFail = (state, { error }) => updateObject(state, {
-  error,
+const signInFail = state => updateObject(state, {
+  isError: true,
   isLoading: false,
 });
 

@@ -28,9 +28,8 @@ export const signInSuccess = (username, email, token) => ({
   token,
 });
 
-export const signInFail = error => ({
+export const signInFail = () => ({
   type: SIGN_IN_FAIL,
-  error,
 });
 
 export const setAutoLogOut = expirationTime => (dispatch) => {
@@ -60,16 +59,12 @@ export const tryAutoSignIn = () => (dispatch) => {
   }
 };
 
-export const signIn = (email, password) => (dispatch) => {
+export const signIn = (values, setErrors, setSubmitting) => (dispatch) => {
   dispatch(signInStart());
 
   const url = 'signin';
-  const signInData = {
-    email,
-    password,
-  };
 
-  axios.post(url, signInData)
+  axios.post(url, values)
     .then(({ data: { data: { username, email }, meta: { token, expiry_at: expirationDate } } }) => {
       const expirationTime = (expirationDate * 1000) - new Date().getTime();
 
@@ -81,7 +76,9 @@ export const signIn = (email, password) => (dispatch) => {
       dispatch(signInSuccess(username, email, token));
       dispatch(setAutoLogOut(expirationTime));
     })
-    .catch((error) => {
-      dispatch(signInFail(error.response.data.message));
+    .catch(({ response: { data: { message } } }) => {
+      dispatch(signInFail());
+      setSubmitting(false);
+      setErrors({ password: message });
     });
 };
