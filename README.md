@@ -6,6 +6,10 @@ This project is created for personal, educational purposes.
 
 This is not the final version, I'm still working on it.
 
+## Live
+
+https://damianziobro.github.io/tasks
+
 ## Installation
 
 ```bash
