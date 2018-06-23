@@ -24,7 +24,7 @@
 
 .input {
     padding: .7em 0;
-    margin: .7em 0;
+    margin-top: .7em;
     width: 300px;
     border: 0;
     border-bottom: 1px solid grey;
@@ -54,11 +54,6 @@
     background-color: #000000;
 }
 
-.error {
-    font-size: .8em;
-    text-transform: none;
-}
-
 .redirect {
     margin-top: 1em;
     text-align: center;
@@ -67,4 +62,11 @@
 .redirectLink {
     padding-left: .5em;
     text-decoration: none;
+}
+
+.error {
+    font-weight: 400;
+    color: #cc0000;
+    font-size: .7em;
+    text-transform: none;
 }
