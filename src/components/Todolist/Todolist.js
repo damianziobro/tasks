@@ -5,7 +5,7 @@ import styles from './Todolist.css';
 import TodoElement from './TodoElement/TodoElement';
 
 function Todolist({
-  todos, onDeleteTodo, onCompleteTodo,
+  todos, onDeleteTodo, onCompleteTodo, deleteTodoLoading,
 }) {
   return (
     <ul className={styles.todolist}>
@@ -15,6 +15,7 @@ function Todolist({
         onDeleteTodo={onDeleteTodo}
         id={id}
         onCompleteTodo={onCompleteTodo}
+        deleteTodoLoading={deleteTodoLoading}
       />))}
     </ul>
   );
