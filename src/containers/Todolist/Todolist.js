@@ -6,92 +6,50 @@ import TodolistComponent from '../../components/Todolist/Todolist';
 import Loader from '../../components/UI/Loader/Loader';
 
 import { initTodos, addTodo, deleteTodo } from '../../store/actions';
-import { isValid } from '../../shared/utility';
 
 class Todolist extends Component {
-    state = {
-      todo: {
-        value: '',
-        validation: {
-          required: true,
-        },
-        valid: false,
-      },
-    };
+  componentDidMount() {
+    const { onInitTodos } = this.props;
+    onInitTodos();
+  }
 
-    componentDidMount() {
-      const { onInitTodos } = this.props;
-      onInitTodos();
-    }
+  handleDeleteTodo = (event) => {
+    const { onDeleteTodo, listId } = this.props;
 
-    handleAddTodoFormSubmit = (event) => {
-      event.preventDefault();
+    onDeleteTodo(event.target.id, listId);
+  };
 
-      const { listId, onAddTodo } = this.props;
-      const { value } = this.state.todo;
+  handleCompleteTodo = (event) => {
+    const { onDeleteTodo, listId } = this.props;
 
-      onAddTodo(value, listId);
+    onDeleteTodo(event.target.id, listId);
+  };
 
-      this.setState({
-        todo: {
-          value: '',
-          validation: {
-            required: true,
-          },
-          valid: false,
-        },
-        formIsValid: false,
-      });
-    };
+  render() {
+    const {
+      todos,
+      addTodoLoading,
+      deleteTodoLoading,
+      onAddTodo,
+      listId,
+    } = this.props;
 
-    handleDeleteTodo = (event) => {
-      const { onDeleteTodo, listId } = this.props;
-
-      onDeleteTodo(event.target.id, listId);
-    };
-
-    handleInputChange = (event) => {
-      const todo = { ...this.state.todo };
-
-      todo.value = event.target.value;
-      todo.valid = isValid(todo.value, todo.validation);
-
-      let formIsValid = false;
-      if (todo.valid) {
-        formIsValid = true;
-      }
-
-      this.setState({ todo, formIsValid });
-    };
-
-    handleCompleteTodo = (event) => {
-      const { onDeleteTodo, listId } = this.props;
-
-      onDeleteTodo(event.target.id, listId);
-    };
-
-    render() {
-      const { value, valid } = this.state.todo;
-      const { todos, addTodoLoading, deleteTodoLoading } = this.props;
-
-      return (
-        <div>
-          <AddTodo
-            value={value}
-            onInputChange={this.handleInputChange}
-            onAddTodoFormSubmit={this.handleAddTodoFormSubmit}
-            valid={valid}
-          />
-          <TodolistComponent
-            todos={todos}
-            onDeleteTodo={this.handleDeleteTodo}
-            onCompleteTodo={this.handleCompleteTodo}
-            deleteTodoLoading={deleteTodoLoading}
-          />
-          {addTodoLoading && <Loader />}
-        </div>
-      );
-    }
+    return (
+      <div>
+        <AddTodo
+          onAddTodo={onAddTodo}
+          listId={listId}
+        />
+        <TodolistComponent
+          todos={todos}
+          onDeleteTodo={this.handleDeleteTodo}
+          onCompleteTodo={this.handleCompleteTodo}
+          deleteTodoLoading={deleteTodoLoading}
+        />
+        {addTodoLoading && <Loader />}
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = ({
