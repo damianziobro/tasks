@@ -1,6 +1,4 @@
-import {
-  updateObject,
-} from '../../shared/utility';
+import updateObject from '../../shared/utility';
 
 import {
   ERROR,
@@ -26,7 +24,8 @@ const initialState = {
 
 const fetchTodosStart = state => updateObject(state, { loading: true });
 
-const setTodos = (state, action) => updateObject(state, { todos: action.todos });
+const setTodos = (state, action) =>
+  updateObject(state, { todos: action.todos });
 
 const error = state => updateObject(state, { error: true });
 
@@ -48,22 +47,34 @@ const deleteTodoFromState = (state, action) => {
   return updateObject(state, { todos: newTodos });
 };
 
-const deleteTodoStart = state => updateObject(state, { deleteTodoLoading: true });
+const deleteTodoStart = state =>
+  updateObject(state, { deleteTodoLoading: true });
 
-const deleteTodoSuccess = state => updateObject(state, { deleteTodoLoading: false });
+const deleteTodoSuccess = state =>
+  updateObject(state, { deleteTodoLoading: false });
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_TODOS_START: return fetchTodosStart(state, action);
-    case SET_TODOS: return setTodos(state, action);
-    case ERROR: return error(state, action);
-    case SET_LIST_ID: return setListId(state, action);
-    case ADD_TODO_START: return addTodoStart(state, action);
-    case SET_TODO: return setTodo(state, action);
-    case ADD_TODO_SUCCESS: return addTodoSuccess(state, action);
-    case DELETE_TODO_FROM_STATE: return deleteTodoFromState(state, action);
-    case DELETE_TODO_START: return deleteTodoStart(state, action);
-    case DELETE_TODO_SUCCESS: return deleteTodoSuccess(state, action);
+    case FETCH_TODOS_START:
+      return fetchTodosStart(state, action);
+    case SET_TODOS:
+      return setTodos(state, action);
+    case ERROR:
+      return error(state, action);
+    case SET_LIST_ID:
+      return setListId(state, action);
+    case ADD_TODO_START:
+      return addTodoStart(state, action);
+    case SET_TODO:
+      return setTodo(state, action);
+    case ADD_TODO_SUCCESS:
+      return addTodoSuccess(state, action);
+    case DELETE_TODO_FROM_STATE:
+      return deleteTodoFromState(state, action);
+    case DELETE_TODO_START:
+      return deleteTodoStart(state, action);
+    case DELETE_TODO_SUCCESS:
+      return deleteTodoSuccess(state, action);
     default:
       return state;
   }

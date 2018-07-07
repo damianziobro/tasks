@@ -1,6 +1,4 @@
-import {
-  updateObject,
-} from '../../shared/utility';
+import updateObject from '../../shared/utility';
 
 import {
   REGISTER_START,
@@ -16,33 +14,38 @@ const initialState = {
   isRegistered: false,
 };
 
-const registerStart = state => updateObject(state, {
-  isError: false,
-  isLoading: true,
-});
+const registerStart = state =>
+  updateObject(state, {
+    isError: false,
+    isLoading: true,
+  });
 
-const registerSuccess = (state, { username, email }) => updateObject(state, {
-  username,
-  email,
-  isError: false,
-  isLoading: false,
-  isRegistered: true,
-});
+const registerSuccess = (state, { username, email }) =>
+  updateObject(state, {
+    username,
+    email,
+    isError: false,
+    isLoading: false,
+    isRegistered: true,
+  });
 
-const registerFail = state => updateObject(state, {
-  isError: true,
-  isLoading: false,
-});
+const registerFail = state =>
+  updateObject(state, {
+    isError: true,
+    isLoading: false,
+  });
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_START: return registerStart(state, action);
-    case REGISTER_SUCCESS: return registerSuccess(state, action);
-    case REGISTER_FAIL: return registerFail(state, action);
+    case REGISTER_START:
+      return registerStart(state, action);
+    case REGISTER_SUCCESS:
+      return registerSuccess(state, action);
+    case REGISTER_FAIL:
+      return registerFail(state, action);
     default:
       return state;
   }
 };
 
 export default reducer;
-
